@@ -1,4 +1,6 @@
-[TOD]
+[TOC]
+
+
 
 # 02_day
 
@@ -44,3 +46,35 @@ for site in sites:
 버전 1과 2의 차이를 알수있다. 수정이유를 남길수 있다. 
 
 ### 2.2github
+
+**git** **setting**
+
+git config --global user.name "woodg1207"
+
+git config --global user.email woodg1207@gmail.com
+
+**check**
+
+git config --global --list
+
+git status     #git 상태확인
+
+**add**
+
+git add 00_startcamp  #index에 추가 
+
+**commit**
+
+git commit -m "firts commit"
+
+// commit check
+
+​		git log
+
+**push**
+
+​	git remote add origin https://github.com/woodg1207/TIL.git
+
+ 		//check
+
+​		git remote -v
