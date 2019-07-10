@@ -1,11 +1,11 @@
 ##1.인치를 cm로 변환
 
-#inch = int(input('인치를 입력하시오'))
-#cm = inch * 2.54
-# print(f'{inch}inch는 변환하면 {cm}cm이다.')
+inch = float(input('인치를 입력하시오'))
+cm = inch * 2.54
+print(f'{inch} inch  => {cm} cm')
 
 ##2.kg을 파운드로 변환하는 프로그램 
-#소수점 자리수는 round(변수, 자리수)
+#소수점 반올림은 round(변수, 자리수)
 
 # kilo = float(input('킬로그램을 입력하세요'))
 # lb = kilo * 2.2046
