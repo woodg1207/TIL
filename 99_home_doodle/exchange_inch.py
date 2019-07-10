@@ -1,8 +1,8 @@
 ##1.인치를 cm로 변환
 
-inch = float(input('인치를 입력하시오'))
-cm = inch * 2.54
-print(f'{inch} inch  => {cm} cm')
+# inch = float(input('인치를 입력하시오'))
+# cm = inch * 2.54
+# print(f'{inch:.2f} inch  => {cm} cm')
 
 ##2.kg을 파운드로 변환하는 프로그램 
 #소수점 반올림은 round(변수, 자리수)
