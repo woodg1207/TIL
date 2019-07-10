@@ -19,3 +19,41 @@
 # do_f = float(input('insert'))
 # do_c = (do_f - 32) / 1.8
 # print(f'{do_f} => {round(do_c,2)}')
+###
+# salt_water = 100
+# water = 200
+# salt = float(salt_water*0.2)
+# print(salt)
+# combine = float(salt/(salt_water+water)*100)
+# print(f'혼합된 소금물의 농도: {round(combine, 2)}%')
+
+###약수구하기 문제 ++추가 소수면 말해주기 
+# num = int(input(''))
+# boxes = []  빈리스트를 만들어주는것이 중요하다. 
+# for i in range(num):
+#     if num % (i+1) == 0:
+#         boxes.append(i+1)
+#         print(f'{i+1}(은)는 {num}의 약수입니다.')
+# if len(boxes) == 2:
+#     print(f'{num}(은)는 {boxes[0]}과 {boxes[1]}로만 나눌 수 있는 소수입니다.')
+###소문자 대문자 판별 문제
+# alpha = input('')
+# if alpha.upper() == alpha:
+#     print(f'{alpha} 는 대문자 입니다.')
+# else:
+#     print(f'{alpha} 는 소문자 입니다.')
+
+##
+import random
+game = ['가위', '바위', '보']
+man1 = random.choice(game)
+print(man1)
+man2 = random.choice(game)
+print(man2)
+if man1 == man2:
+    print(f'Result : Draw')
+elif game.index(man1)-1 == game.index(man2) or game.index(man1)+2 == game.index(man2):
+    print(f'Result : Man1 Win!')
+else:
+    print(f'Result : Man2 Win!')
+
