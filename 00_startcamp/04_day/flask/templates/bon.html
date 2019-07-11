@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>신은 {{name}}님에게  </h1>
+    {% for i in personality %}
+        <h2>{{i}} 는 {{ran[j]}} 만큼 줬습니다.</h2>
+        {% j = j+1%}
+    {% endfor %}
+</body>
+</html>
