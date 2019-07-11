@@ -68,6 +68,10 @@ else:
 박나율
 """
 print(ssafy.get('classes').get('dj').get('class president'))
+
+for key, name in ssafy.get('classes').get('dj').items():
+    if 'class president' == key:
+        print(name)
    
 
 """

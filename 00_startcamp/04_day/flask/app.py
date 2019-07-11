@@ -114,8 +114,11 @@ def input_name():
 def result_char():
     personality = ['돈복', '외모', '운', '인성', '민첩', '힘', '지능']
     ran = range(1,11)
-    j = 0
+    
+    boxes={}
     name_bon = request.args.get('data')
-    personality_random = random.sample(personality,3)
-    ran_random = random.sample(ran, 3)
-    return render_template('bon.html', name = name_bon, personality = personality_random, ran = ran_random, j = j)
+    for i in range(3):
+        boxes[random.choice(personality)] = random.choice(ran)
+        del boxes['']
+
+    return render_template('bon.html', name = name_bon, boxes = boxes)

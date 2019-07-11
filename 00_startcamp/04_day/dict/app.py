@@ -13,13 +13,13 @@ def lotto_result():
     #회차번호를 받아와야한다. 
     num = request.args.get('num')
     #동행복권에 요청을 보내 응답을 받는다. 
-    res = requests.get(f'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={numbers}')
+    res = requests.get(f'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={num}')
     #json형태로 바꿔준다. (우리가 크롬에서 보고있는 결과와 동일한 모습)
     lotto = res.json()
     #당첨번호 6개 갖고오기
     winner = []
-    for i in range(i,7):
-        winner.append(lotto[f'drwNo{i}'])#append()를 이용하면 하나씩 넣는다.
+    for i in range(1,7):
+        winner.append(lotto[f'drwtNo{i}'])#append()를 이용하면 하나씩 넣는다.
     
     # 내번호 리스트 만들기 
     numbers = []

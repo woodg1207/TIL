@@ -8,9 +8,9 @@
 </head>
 <body>
     <h1>신은 {{name}}님에게  </h1>
-    {% for i in personality %}
-        <h2>{{i}} 는 {{ran[j]}} 만큼 줬습니다.</h2>
-        {% j = j+1%}
+    {% for key, value in boxes.items() %}
+        <h2>{{key}} 는  {{value}}만큼 줬습니다.</h2>
+        
     {% endfor %}
 </body>
 </html>
