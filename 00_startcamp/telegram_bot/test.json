@@ -1,0 +1,35 @@
+{
+    'update_id': 806251748, 
+    'message': {
+		'message_id': 11, 
+		'from': {
+            'id': 847284941,
+             'is_bot': False,
+            'first_name': 'dong gyun',
+            'last_name': 'woo', 
+            'language_code': 'ko'
+        }, 
+		'chat': {
+            'id': 847284941,
+            'first_name': 'dong gyun',
+            'last_name': 'woo',
+            'type': 'private'
+            }, 
+        'date': 1562897731, 
+        'text': 'ㄴㄴ'
+    }
+}
+
+
+{
+    'message': {
+        '@type': 'response', 
+        '@service': 'naverservice.nmt.proxy', 
+        '@version': '1.0.0', 
+        'result': {
+            'srcLangType': 'ko', 
+            'tarLangType': 'en', 
+            'translatedText': 'apple'
+        }
+    }
+}
