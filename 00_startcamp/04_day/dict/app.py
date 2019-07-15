@@ -9,7 +9,7 @@ def lotto_check():
 
 
 @app.route('/lotto_result')
-def lotto_result():
+def lotto_result():  
     #회차번호를 받아와야한다. 
     num = request.args.get('num')
     #동행복권에 요청을 보내 응답을 받는다. 
