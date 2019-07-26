@@ -36,7 +36,7 @@ def even_and_odd(numbers):
         if num%2:
             odd.append(num)
             odd = sorted(odd, reverse=True)
-    print(odd)
+        
     return odd
 print(even_and_odd([7, 3, 14, 17]))
 
