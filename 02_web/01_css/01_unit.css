@@ -1,0 +1,40 @@
+html {
+  font-size: 20px;
+}
+
+ol,
+ol li {
+  font-size: 1.2rem;
+}
+
+ul,
+ul li {
+  font-size: 1.2em;
+}
+
+.vw {
+  /* 클래스로 해서 vw,vh각각 선택가능함 */
+  font-size: 10vw;
+}
+
+.vh {
+  font-size: 10vh;
+}
+
+.div-vw{
+  width: 10vw;
+  height: 10vw;
+  background-color: red;
+}
+
+.div-vh{
+  width: 10vh;
+  height: 10vh;
+  background-color: skyblue;
+}
+
+.div-vmin {
+  width: 10vmin;
+  height: 10vmin;
+  background-color: greenyellow;
+}

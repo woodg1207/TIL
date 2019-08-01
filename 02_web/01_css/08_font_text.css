@@ -1,0 +1,48 @@
+.font-1 {
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+}
+
+.font-2 {
+  font-size: 2rem;
+  font-family: 'Lacquer', sans-serif;
+  font-weight: lighter;
+}
+
+.font-3 {
+  font-size: 130%;
+  font-family: 'Single Day', cursive;
+  font-weight: bold
+}
+
+.font-4 {
+  font-size: small;
+  font-weight: 700;
+}
+
+.font-5 {
+  /* font shorthand */
+  /* font: font-style font-weight line-height font-size(필수) font-family(필수)*/
+  font: italic 2rem "fira code";
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: crimson;
+  color: white;
+}
+
+.box>p {
+  text-align: center;
+  line-height: 100px;
+  /* 라인의 높이(line-height)를 부모의 높이(height)로
+   해주면 가운데로 간것처럼 보인다.{수직 중앙절렬에 용이}
+   단 text가 한 줄인 경우에 */
+}
+
+.web-font {
+  font-size: 40px;
+  font-family: 'Nanum Brush Script', cursive;
+}
