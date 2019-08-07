@@ -1,0 +1,23 @@
+div {
+  width: 100px;
+  height: 100px;
+  color: white;
+  background-color: crimson;
+  text-align: center;
+  line-height: 100px;
+}
+
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.back {
+  background-color: orange;
+  width: 300px;
+}
+
+.clear {
+  clear: both;
+}
