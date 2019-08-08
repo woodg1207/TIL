@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    .main {
+      height: 100%;
+    }
+
+    nav {
+      height: 100px;
+    }
+
+    .items>li {
+      list-style-type: none;
+    }
+
+    .article {
+      background-color: violet;
+      padding: 30px 10px;
+    }
+
+    aside {
+      width: 200px;
+    }
+
+    footer {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container d-flex vh-100 flex-column">
+    <nav class="d-flex bg-warning justify-content-between align-items-center">
+      <div>LOGO</div>
+      <ul class="items d-flex flex-row-reverse bd-highlight mb-0">
+        <li class="mx-2">Home</li>
+        <li class="mx-2">About</li>
+        <li class="mx-2">Content</li>
+        <li class="mx-2">Contact</li>
+      </ul>
+    </nav>
+    <div class="main d-flex h-100">
+      <aside class="bg-success"> 왼쪽 </aside>
+      <section class="d-flex flex-column">
+        <div class="article flex-grow-1 border border-light">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Atque
+          voluptatem modi, blanditiis aperiam dolorem
+          inventore dolor aliquid iusto molestiae vero id asperiores nostrum fugit est excepturi. Ducimus accusantium
+          vero iusto!</div>
+        <div class="article flex-grow-1 border border-light">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Accusantium alias quibusdam
+          aspernatur dolor quas
+          porro tempora, reprehenderit eos totam beatae et sunt unde cumque fugiat labore veniam a, officia corporis.
+        </div>
+        <div class="article flex-grow-1 border border-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Facere accusamus, aliquam
+          quisquam eveniet,
+          asperiores officia adipisci rerum repellat unde alias, non maxime sit inventore? Ipsum repudiandae culpa eius
+          dolore reiciendis!</div>
+      </section>
+    </div>
+    <footer class="w-100 bg-primary mt-auto">
+      이곳은 푸터입니다.
+    </footer>
+  </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
