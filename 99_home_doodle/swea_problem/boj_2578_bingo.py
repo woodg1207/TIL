@@ -4,3 +4,4 @@ a = []
 for i in range(5):
     a.extend(map(int, input().split()))
 
+pprint(my)
