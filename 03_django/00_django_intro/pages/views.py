@@ -82,7 +82,7 @@ def catch(request):
     # pprint(request.path)
     # pprint(request.method)
     # pprint(request.GET)
-    pprint(request.META)
+    # pprint(request.META)
     message = request.GET.get('message') # key 값을 갖고 온다.
     context = {'message': message,} 
     return render(request, 'pages/catch.html', context)
