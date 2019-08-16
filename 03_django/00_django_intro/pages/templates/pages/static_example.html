@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% comment %} /{% load static %}까먹으면 안된다./ {% endcomment %}
+{% block css %}
+ <link rel="stylesheet" href="{% static 'pages/stylesheets/style.css'%}">
+{% endblock css %}
+ 
+
+{% block content %}
+  <h1>Static 파일 실습</h1>
+  <img src="{% static 'pages/images/sample.jpg' %}" alt="static_img_sample">
+{% endblock content %}
+
+
+
