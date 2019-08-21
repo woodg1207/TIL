@@ -85,7 +85,7 @@ https://docs.djangoproject.com/en/2.2/ref/models/fields/#datefield
 
    - make migrations 명령어는 모델(model.py)을 작성/변경한 사항을 django에게 알리는 작업.(ORM  에 보낼 python 코드설계도를 작성)
 
-   - 테이블에 대한 설계도(django ORm이 만들어 줌)를 생성
+   - 테이블에 대한 설계도(django ORM이 만들어 줌)를 생성
 
 2. migrate
 
@@ -117,7 +117,242 @@ $ python manage.py showmigrations
 1. models.py : 작성 및 변경(생성/ 수정)
 2. makemigrations : migrations 파일 만들기 (설계도)
 3. migrate : 실제 DB 에  적용 및 동기화 (테이블 생성)
+4.  아무것도 안될때 [db.sqlite3], [0001등의 숫자 파일]을 지우고 처음부터 시작한다. 
 
 테이블의 이름은 app 이름과 model에 작성한 class이름이 조합되어져서 자동으로 만들어진다. (**모두 소문자**)
 
 모델의 클래스 변수들은 반드시 소문자로 작성한다. 
+
+### 2. CRUD(DB API 조작)
+
+1. Django Shell
+   - django 프로젝트 설정이 로딩된 파이썬 shell
+   - 일반 파이썬 shell로는 django환경에 접근 불가
+   - 즉, django 프로젝트 환경에서 파이썬 shell을 활용한다고 생각 
+
+```sqlite
+from articles.models import Article  # 킬때마다 해줘야함
+Article.objects.all()  # SELECT * FROM articles_article;  테이블내용을 전부 조회(READ)
+```
+
+- DB 에 쿼리를 날려서 인스턴스 객체 전부를 달라고 하는 뜻
+- 만약 레코드가 하나라면, 인스턴스 단일 객체로 반환 
+- 두개 이상이면 QuerySet형태로 반환
+
+#### CREATE
+
+**QuerySet 기본개념**
+
+- 전달받은 객체의 목록
+  - QuerySet :  쿼리 set 객체
+  - Query : 단일 객체 
+
+- DB로 부터 데이터를 읽고, 필터를 걸거나 정렬 등을 수행
+- Query 를 던지는 Language(django ORM)를 활용해서 DB에게 데이터에 대한 조작을 요구한다. 
+
+QuerySet
+
+- objects를 사용하여 다수의 데이터를 가져오는 함수를 사용할때 반환되는 객체
+- 단일한 객체를 반환(return)할때는 테이블(class)의 인스턴스로 return됨
+
+'objects'
+
+- Model Manager와 Django Model 사이의 Query연산의 인터네핑스 역할을 해주는 친구
+- 즉, models.py 에 설정한 클래스(테이블)를 불러와서 사용할때 DB와의 인터페이스 역할(Query를 날려주는 역할 )하는 매니저이다.
+- 쉽게 이해하려면 ORM의 역할이라고 생각하면 된다. 
+- DB -------- objects --------- Python Class(models.py)
+
+- Manager(objects) 를 통해 특정 데이터를 조작(메서드)할 수 있다. 
+
+##### 데이터 객체를 만드는(생성, CREATE)하는 3가지 방법
+
+1. 첫번째 방식
+
+   ```python
+   $ sqlite3 db.sqlite3 # 
+   $ pip install ipython  # 설치
+   $ python manage.py shell
+   #SQL : 특정 테이블에 새로운 레코드(행)를 추가하여 데이터 추가
+   # INSERT INTO table (column1, column2,....) VALUES(value1, ...)
+   # INSERT INTO articles_article (title, content) VASLUES('first', 'django!')
+   >>> article = Article()
+   >>> article.title = 'first' # 인스턴스 변수에 값을 할당
+   >>> article.content = 'django!' # 인스턴스 변수에 값을 할당
+   
+   # save를 하지 않으면 아직 DB에 값이 저장되지 않음
+   >>> article
+    <Article: Article object (None)>
+   >>> article.objects.all()
+    <QuerySet []>
+   
+   # save를 하고 확인해보면 저장 확인 가능
+   >>> article.save()
+   >>> article
+   <Article: Article object (1)>
+   >>> Article.objects.all()
+   <QuerySet [<Article: Article object (1)>]>
+   # 인스턴스 article을 활용하여 변수에 접근이 가능(저장된 값 확인)
+   >>> article.title
+   'first'
+   >>> article.content
+   'django!'
+   >>> article.created_at
+ datetime.datetime(2019, 8, 21, 2, 43, 57, 390667, tzinfo=<UTC>)
+   >>> article.pk # id값을 볼수있다.
+   ```
+   
+   
+
+2. 두번째 방식
+
+   ```python
+   >>> article = Article(title='second', content='django!!')
+   >>> article.save()
+   
+   >>>Article.objects.all()
+   <QuerySet [<Article: Article object (1)>, <Article: Article object (2)>]>
+   ```
+
+3. 세번째 방식
+
+   - create() 를 사용하면 쿼리셋 객체를 생성하고 저장하는 로직이 한번의 스텝으로 끝난다. 
+   - 유효성 검증을 할 수가 없어 주로 1, 2번을 사용한다.
+
+   ```python
+   >>> Article.objects.create(title='third', content='django!!!')
+   ```
+
+   
+
+##### 유효성 검사 
+
+- save 전에 full_clean() 메서드를 통해 article이라는 인스턴스 객체가 검증(validation)에 적합한지 알아 볼 수 있다. 
+- models.py 에 필드 속성과 옵션에 따라 검증을 진행한다. 
+
+```python
+>>>article = Article()
+>>>article.title = 'life is short, you need python'
+>>>article.full_clean()
+ValidationError: {'title': ['이 값이 최대 10 개의 글자인지 확인하세요(입력값 30 자).'], 'content': ['이 필드는 빈 칸으로 둘 수 없습니다.']}
+```
+
+
+
+#### READ
+
+```python
+#1. SELECT*FROM articles_article;
+#1. DB에 있는 모든 글 가져오기
+>>> Article.objects.all()
+<QuerySet []>
+
+# 2. DB에 저장된 글 중에서 title이 first인 글만 가져오기
+#2. SELECT*FROM articles_article WHERE title='first';
+>>> Article.objects.filter(title='first')
+
+
+In [3]: Article.objects.all()
+Out[3]: <QuerySet [<Article: 1 번글 - first : django!>, <Article: 2 번글 - second 
+글 - fourth : django!!!!>]>
+
+In [4]: Article.objects.create(title='fifth', content='django!!!!!')
+Out[4]: <Article: 5 번글 - fifth : django!!!!!>
+
+In [5]: articles = Article.objects.filter(title='first')
+
+In [6]: articles
+Out[6]: <QuerySet [<Article: 1 번글 - first : django!>]>
+
+In [7]: type(articles)
+Out[7]: django.db.models.query.QuerySet
+
+In [8]: Article.objects.create(title='first', content='django!!!!!!!')
+Out[8]: <Article: 6 번글 - first : django!!!!!!!>
+
+In [9]: Article.objects.filter(title='first')
+Out[9]: <QuerySet [<Article: 1 번글 - first : django!>, <Article: 6 번글 - first : django!!!!!!!>]>
+
+In [10]: Article.objects.filter(title='first').first()
+Out[10]: <Article: 1 번글 - first : django!>
+
+In [11]: Article.objects.filter(title='first').last()
+Out[11]: <Article: 6 번글 - first : django!!!!!!!>
+
+In [12]: article = Article.objects.get(pk=1)
+
+In [13]: article
+Out[13]: <Article: 1 번글 - first : django!>
+
+In [14]: type(article)
+Out[14]: articles.models.Article
+
+In [15]: Article.objects.get(pk=10)
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-15-0dfc467affe8> in <module>
+----> 1 Article.objects.get(pk=10)
+
+~\Desktop\TIL\03_django\01_django_orm_crud\venv\lib\site-packages\django\db\models\manager.py in manager_method(self, *args, **kwargs)
+     80         def create_method(name, method):
+     81             def manager_method(self, *args, **kwargs):
+---> 82                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     83             manager_method.__name__ = method.__name__
+     84             manager_method.__doc__ = method.__doc__
+
+~\Desktop\TIL\03_django\01_django_orm_crud\venv\lib\site-packages\django\db\models\query.py in get(self, *args, **kwargs)
+    406             raise self.model.DoesNotExist(
+    407                 "%s matching query does not exist." %
+--> 408                 self.model._meta.object_name
+    409             )
+    410         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: Article matching query does not exist.
+
+In [16]: Article.objects.get(title='first')
+---------------------------------------------------------------------------
+MultipleObjectsReturned                   Traceback (most recent call last)
+<ipython-input-16-d1fbb51d7cde> in <module>
+----> 1 Article.objects.get(title='first')
+
+~\Desktop\TIL\03_django\01_django_orm_crud\venv\lib\site-packages\django\db\models\manager.py in manager_method(self, *args, **kwargs)
+     80         def create_method(name, method):
+     81             def manager_method(self, *args, **kwargs):
+---> 82                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     83             manager_method.__name__ = method.__name__
+     84             manager_method.__doc__ = method.__doc__
+
+~\Desktop\TIL\03_django\01_django_orm_crud\venv\lib\site-packages\django\db\models\query.py in get(self, *args, **kwargs)
+    410         raise self.model.MultipleObjectsReturned(
+    411             "get() returned more than one %s -- it returned %s!" %
+--> 412             (self.model._meta.object_name, num)
+    413         )
+    414
+
+MultipleObjectsReturned: get() returned more than one Article -- it returned 2!
+
+In [17]: Article.objects.filter(pk=10)  #없는 pk여도 에러가 X
+Out[17]: <QuerySet []>
+        
+>>> Article.objects.order_by('-pk')  #역순
+Out[18]: <QuerySet [<Article: 6 번글 - first : django!!!!!!!>, <Article: 5 번글 - fifth : django!!!!!>, <Article: 4 번글 - fourth : django!!!!>, <Article: 3 번글 - third : django!!!>, <Article: 2 번글 - second : django!!>, <Article: 1 번글 - first : django!>]>
+  
+>>> articles = Article.objects.all()[1:3]  #슬라이싱 가능
+In [20]: articles
+Out[20]: <QuerySet [<Article: 2 번글 - second : django!!>, <Article: 3 번글 - third : django!!!>]>
+    
+        
+In [22]: articles = Article.objects.filter(title__startswith='fir')
+
+In [23]: articles
+Out[23]: <QuerySet [<Article: 1 번글 - first : django!>, <Article: 6 번글 - first : django!!!!!!!>]>
+
+In [24]: articles = Article.objects.filter(title__contains='fir')
+
+In [25]: articles
+Out[25]: <QuerySet [<Article: 1 번글 - first : django!>, <Article: 6 번글 - first : django!!!!!!!>]>
+
+In [26]: articles = Article.objects.filter(content__endswith='!')
+<QuerySet [<Article: 1 번글 - first : django!>, <Article: 2 번글 - second : django!!>, <Article: 3 번
+글 - third : django!!!>, <Article: 4 번글 - fourth : django!!!!>, <Article: 5 번글 - fifth : django!!!!!>, <Article: 6 번글 - first : django!!!!!!!>]>
+```
+
