@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1 class="text-center">EDIT</h1>
+  <form action="/articles/{{article.pk}}/update/" method="POST">
+    {% csrf_token %}  
+    {% comment %} 토큰값을 같이 붙여서 보내줘야한다. {% endcomment %}
+    <label for="title">TITLE</label>
+    <input type="text" name="title" id="title" value="{{article.title}}"> <br>
+    <label for="content">CONTENT</label>
+    <textarea name="content" id="content" cols="30" rows="5">{{article.content}}</textarea>
+    <br>
+    <input type="submit" value="제출">
+  </form>
+  <a href="/articles/{{article.pk}}/">[back]</a>
+{% endblock  %}
