@@ -2,7 +2,6 @@ import sys; sys.stdin = open('c.txt', 'r')
 
 def find(a):
     visit[a] = True
-    print(visit)
     for w in g[a]:
         if not visit[w]:
             find(w)
