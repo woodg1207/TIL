@@ -19,22 +19,18 @@ sys.stdin = open('m.txt', 'r')
 
 def dfs(a, b):
     global re
-    print(a, b)
+    # print(a, b)
     if arr[a][b] == 3:
-        print('dddd')
         re = 1
         return
-    if a+1<n and arr[a+1][b]==0:
-        arr[a + 1][b]=1
+    arr[a][b] = 1
+    if a+1<n and arr[a+1][b]!=1:
         dfs(a+1,b)
-    if b+1<n and arr[a][b+1]==0:
-        arr[a][b+1] = 1
+    if b+1<n and arr[a][b+1]!=1:
         dfs(a, b+1)
-    if 0<=a-1 and arr[a-1][b]==0:
-        arr[a-1][b]=1
+    if 0<=a-1 and arr[a-1][b]!=1:
         dfs(a-1, b)
-    if 0<=b-1 and arr[a][b-1]==0:
-        arr[a][b-1]=1
+    if 0<=b-1 and arr[a][b-1]!=1:
         dfs(a, b-1)
 
 tc = int(input())
