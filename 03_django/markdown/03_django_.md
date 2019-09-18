@@ -149,6 +149,9 @@ form tag 에 action이 없다면, 현재 머물고 있는 URL로 요청을 보�
 
 #### 1. `get_absolute_url() `
 
+- 특정 모델에 대해 detail view를 작성할 경우, detail url 을 완성하자마자 사요하는것을 권장한다. 
+- 반복되는 코드가 줄고 보다 간결해진다. 
+
 models.py
 
 ```python
@@ -193,3 +196,22 @@ URL Reverse를 수행하는 함수들
 
 - return 값으로 내부적으로 `reverse()`를 사용한다. 
 
+
+
+redirect(모델 인스턴스 )를 통해서 모델인스턴스의 `get_absolute_url():`함수를 자동으로 호출 
+
+
+
+model
+
+name 20.
+
+past_job 제한없음.
+
+view 2개 
+
+index / past_life
+
+입력된 이름이 db에 있는지 없는지 
+
+있다면 기존 db에서 그대로 가져와서 출력 
