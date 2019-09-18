@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">[INDEX_PAGE]</h1>
+
+<form action="{% url 'jobs:past_life'%}" method="POST">
+  {% csrf_token %}
+  <label for="name">[name]</label>
+  <br>
+  <input type="text" name="name" id="name"> <br>
+  <input type="submit" value="제출">
+</form>
+
+{% endblock content %}

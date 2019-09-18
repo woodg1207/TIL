@@ -12,39 +12,19 @@ def index(request):
     context = {'articles': articles, }
     return render(request, 'articles/index.html', context)
 
-
-###       CREATE와 관련 new(),create()
-def new(request):
-    return render(request, 'articles/new.html')
-
 def create(request):
-    try:
+    if request.method == 'POST':
+        # CREATE
         title = request.POST.get('title')
         content = request.POST.get('content')
-
-    #1  인스턴스로 >> Article() import해야함
-    # article = Article()
-    # article.title = title
-    # article.content = content
-    # article.save()
-
-    #2
         article = Article(title=title, content=content)
         article.full_clean()
-        
-    except ValidationError:
-        raise ValidationError('error')
-    else:
         article.save()
-        return redirect(f'/articles/{article.pk}/') 
-    #3 검증을 못함 
-    # Article.objects.create(title=title, content=content)
-
-    # 글이 보이지 않는 이유는 페이지 자체는 index가 맞지만 url은 아직 create에 머물어있다.
-    #
-    # return render(request, 'articles/create.html')
-    # return redirect(f'/articles/{article.pk}/') 
-
+        return redirect(article) 
+    else:
+        # NEW
+        return render(request, 'articles/create.html')
+  
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
     context = {'article':article,}
@@ -52,19 +32,19 @@ def detail(request, pk):
 
 def delete(request, pk):
     article = Article.objects.get(pk=pk)
-    article.delete()
-    return redirect('/articles/')
-
-def edit(request, pk):
-    article = Article.objects.get(pk=pk)
-    context = {'article':article,}
-    return render(request, 'articles/edit.html', context)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles:index')
+    else:
+        return redirect(article)
 
 def update(request, pk):
     article = Article.objects.get(pk=pk)
-    
-    article.title = request.POST.get('title')
-    article.content = request.POST.get('content')
-    article.save()
-
-    return redirect(f'/articles/{article.pk}/')
+    if request.method == 'POST':
+        article.title = request.POST.get('title')
+        article.content = request.POST.get('content')
+        article.save()
+        return redirect(article)
+    else:
+        context = {'article':article,}
+        return render(request, 'articles/update.html', context)
