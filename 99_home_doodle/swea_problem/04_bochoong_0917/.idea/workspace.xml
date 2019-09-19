@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3d059e5-356b-41db-8efa-b7f6adb5827d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1405_boj_robot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/c.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/templates/articles/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/templates/articles/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/articles/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/04_bochoong_0917.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/04_bochoong_0917.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1405_boj_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/1405_boj_robot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,62 +23,39 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="9" />
+          <entry key="py" value="13" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="9" />
+          <entry key="Python" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1488" />
+          <entry key="py" value="2109" />
           <entry key="txt" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="1488" />
+          <entry key="Python" value="2109" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/2606_boj_virus.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/1405_boj_robot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/4875_swea_miro.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/4613_swea_russia.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -116,8 +85,8 @@
         <option value="$PROJECT_DIR$/v.txt" />
         <option value="$PROJECT_DIR$/2606_boj_virus.py" />
         <option value="$PROJECT_DIR$/m.txt" />
-        <option value="$PROJECT_DIR$/4875_swea_miro.py" />
         <option value="$PROJECT_DIR$/c.txt" />
+        <option value="$PROJECT_DIR$/4875_swea_miro.py" />
         <option value="$PROJECT_DIR$/1405_boj_robot.py" />
       </list>
     </option>
@@ -255,15 +224,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="637" y="12" width="1223" height="1047" extended-state="0" />
+    <frame x="630" y="12" width="1223" height="1025" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14514768" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14514768" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32894737" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33707866" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -288,24 +257,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1210_swea_ladder1.py">
+    <entry file="file://$PROJECT_DIR$/m.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+        <state relative-caret-position="361">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/10026_boj_rgb.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="114">
           <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/m.txt">
+    <entry file="file://$PROJECT_DIR$/1210_swea_ladder1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/4875_swea_miro.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -316,15 +292,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/4875_swea_miro.py">
+    <entry file="file://$PROJECT_DIR$/1405_boj_robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        <state relative-caret-position="209">
+          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1568881898858" expanded="true" signature="88:508" ph="..." />
+          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/4613_swea_russia.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/2606_boj_virus.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -333,10 +310,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1405_boj_robot.py">
+    <entry file="file://$PROJECT_DIR$/4613_swea_russia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="133">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
         </state>
       </provider>
     </entry>
