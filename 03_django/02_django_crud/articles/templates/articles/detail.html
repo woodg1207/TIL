@@ -9,9 +9,35 @@
 <p>작성 시간 : {{article.created_at}}</p>
 <p>수정 시간 : {{article.updated_at}}</p>
 <hr>
+<!-- 댓글 수  -->
+<p><b>{{ comments|length }}개의 댓글</b></p>
+<!-- 댓글을 읽어오는 곳 -->
+{% for comment in comments %}
+<p>댓글:{{comment.content}}</p>
+<p>{{comment.created_at}}</p>
+<form action=" {% url 'articles:comments_delete' article.pk comment.pk %} " method="POST">
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+</form>
+
+{% empty %}
+<p><b>댓글이 없어요...</b></p>
+
+{% endfor %}
+
+<hr>
+<!-- 댓글 작성 form -->
+<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+  {% csrf_token %}
+  <label for="content">COMMENT</label>
+  <input type="text" name="content" id="content">
+  <input type="submit" value="submit">
+</form>
+
+<hr>
 <a href="{% url 'articles:update' article.pk %}">[edit]</a>
 <a href="{% url 'articles:index'%}">{back}</a>
-<form action=" {% url 'articles:delete' article.pk %} " method="POST"onclick="return confirm('지울꺼야?')">
+<form action=" {% url 'articles:delete' article.pk %} " method="POST" onclick="return confirm('지울꺼야?')">
   {% csrf_token %}
   <input type="submit" value="DELETE">
 </form>
