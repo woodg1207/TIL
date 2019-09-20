@@ -17,11 +17,9 @@ def create(request):
         # CREATE
         title = request.POST.get('title')
         content = request.POST.get('content')
-        image = request.FILES.get('image')
-        article = Article(title=title, content=content, image=image)
+        article = Article(title=title, content=content)
         article.full_clean()
         article.save()
-
         return redirect(article) 
     else:
         # NEW
@@ -46,7 +44,6 @@ def update(request, article_pk):
     if request.method == 'POST':
         article.title = request.POST.get('title')
         article.content = request.POST.get('content')
-        article.image = request.FILES.get('image')
         article.save()
         return redirect(article)
     else:

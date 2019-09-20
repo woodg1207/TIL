@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3d059e5-356b-41db-8efa-b7f6adb5827d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../05_bochoong_0919/.idea/05_bochoong_0919.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../05_bochoong_0919/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../05_bochoong_0919/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../05_bochoong_0919/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../05_bochoong_0919/bc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../05_bochoong_0919/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../05_bochoong_0919/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +14,7 @@
     <session id="-1770063104">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="3" />
@@ -229,7 +224,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="630" y="12" width="1223" height="1025" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14514768" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

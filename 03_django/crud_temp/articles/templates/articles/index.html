@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
-<!--load를 써야 갖고 올수 있다. extends아래에 위치해야한다.-->
 {% block content %}
-  <img src="{% static 'articles/images/a.jpg'%}" alt="minion.jpg">
   <h1 class="text-center">Articles</h1>
   <a href="{% url 'articles:create'%}">[new]</a>
   <hr>

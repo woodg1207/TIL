@@ -31,12 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # local apps
     'articles.apps.ArticlesConfig',
     'jobs.apps.JobsConfig',
-    #third-party libraries
-    'imagekit',
-    #django apps
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,19 +120,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-# 실제 파일이나 디렉토리가 아니고, URL로만 존재하는 단위
 STATIC_URL = '/static/'
-# 개발 단계에서 사용하는 실제 정적 파일이 위치한 경로를 지정하는 설정.
-# 보통 boothsrap, 외부 템플릿을 저장하기 위해 경로를 만듦
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'crud','assets'),
-]
-# STATIC_URL 와 비슷한 역할
-#업로드 된 파일의 URL주소를 만들어 주는 역할.
-#STATIC_URL과 값이 달라진다.
-MEDIA_URL = '/media/'
-# STATICFILES_DIRS 와 비슷한 역할을 한다.
-#실제 파일이 업로드 되면 어디에 저장될지 정하는 실제 경로.
-# STATICFILES_DIRS와 값이 달라야 한다. 
-# 개발 단계에서 사용하는 경로이므로, 실제 배포 단계에서는 다른 경로 설정을 해야한다. 
-MEDIA_ROOT = os.path.join(BASE_DIR,'mdeia')
