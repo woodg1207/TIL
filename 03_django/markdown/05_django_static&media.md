@@ -236,4 +236,10 @@ urlpatterns = [
    ...
    ```
 
-   
+#### 이미지업로드 경로 커스텀
+
+`instance.pk`는 처음 레코드가 작성되는 순간에는 pk값이 없기때문
+
+`media/articles/None/images` 로 저장
+
+- 실제 개발에선 로그인을 통해 유저 정보를 받고, `instance.user.pk`또는 `instance.user.username`처럼 업로드한 정보를 
