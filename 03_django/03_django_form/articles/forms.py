@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article
+from .models import Article, Comment
 # class ArticleForm(forms.Form):
 #     title = forms.CharField(
 #         max_length=10, 
@@ -52,21 +52,11 @@ class ArticleForm(forms.ModelForm):
         fields = '__all__'
         # exclude = ('title')# title만 제외 할때 
 
-class CommentForm(forms.Form):
-    content = forms.CharField(
-        max_length=140,
-        label='댓글',
-        widget=forms.TextInput(
-             attrs={
-                'class':'my-title',
-                'palceholder':'endter the title'
-            }
-        )
-    )
-    created_at = forms.DateTimeField()
-    updated_at = forms.DateTimeField()
-    # class Meta:
+class CommentForm(forms.ModelForm):
 
+    class Meta:
+        model = Comment
+        fields = ('content',)
         
 
         
