@@ -1,7 +1,7 @@
 import sys
 sys.stdin = open('rgb.txt', 'r')
 from pprint import pprint
-import sys, copy
+import copy
 sys.setrecursionlimit(10**6)
 
 def dfs(a, b, c):
