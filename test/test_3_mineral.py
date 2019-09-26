@@ -4,6 +4,8 @@ sys.stdin = open('m.txt', 'r')
 
 def find(idx, a, b):
     global mineral
+    if idx == len(m):
+        return
     if a == 0:
         # print(l)
         if mineral < b:
@@ -14,9 +16,9 @@ def find(idx, a, b):
         return
     for i in range(idx+1, len(f)):
         # if i in l: continue
-        # l.append(i)
+        l.append(i)
         find(i,a-(f[i]*2), b+arr[m[i][0]][m[i][1]])
-        # l.pop()
+        l.pop()
 
 tc = int(input())
 for sample in range(tc):
