@@ -24,22 +24,23 @@ def comb(a, b):
                 c+=1
         if c<b-3:
             return
+        print(m)
         cnt +=1
         return
-    if b>=2:
-        for i in range(len(m)):
-            flag = 1
-            for j in range(len(m)):
-                if m[i] + 1 == m[j] and (m[i]+1)%5!=0:
-                    flag = 0
-                elif m[i] + 5 == m[j]:
-                    flag = 0
-                elif m[i] - 1 == m[j] and m[i]%5!=0:
-                    flag = 0
-                elif m[i] - 5 == m[j]:
-                    flag = 0
-            if flag:
-                return
+    # if b>=2:
+    #     for i in range(len(m)):
+    #         flag = 1
+    #         for j in range(len(m)):
+    #             if m[i] + 1 == m[j] and (m[i]+1)%5!=0:
+    #                 flag = 0
+    #             elif m[i] + 5 == m[j]:
+    #                 flag = 0
+    #             elif m[i] - 1 == m[j] and m[i]%5!=0:
+    #                 flag = 0
+    #             elif m[i] - 5 == m[j]:
+    #                 flag = 0
+    #         if flag:
+    #             return
     if b >= 4:
         c = 0
         for i in range(len(m)):
@@ -65,7 +66,6 @@ for i in range(5):
         if arr[i][j] == 'S':
             s.append(number[i][j])
 for i in range(19):
-    if i != 5: continue
     m = []
     visit = [False] * (25)
     visit[i] = True
