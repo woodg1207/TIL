@@ -1,114 +1,74 @@
 import sys
 sys.stdin = open('seven.txt', 'r')
 
-def find(a, b, c, d):
-    global m
-    if d >= 4:
-        if d-c.count('S')>3:
+
+def comb(a, b):
+    global m, cnt
+    if b == 7:
+        for i in range(7):
+            flag = 1
+            for j in range(7):
+                if m[i] + 1 == m[j] and (m[i]+1)%5!=0:
+                    flag = 0
+                elif m[i] + 5 == m[j]:
+                    flag = 0
+                elif m[i] - 1 == m[j] and m[i]%5!=0:
+                    flag = 0
+                elif m[i] - 5 == m[j]:
+                    flag = 0
+            if flag:
+                return
+        c = 0
+        for i in range(7):
+            if m[i] in s:
+                c+=1
+        if c<b-3:
             return
-    if d == 7:
-        # print(c)
-        l = []
-        if c.count('S')<4: return
-        # print(c)
-        for i in range(len(visit)):
-            if visit[i]:
-                l.append(i)
-        # print(l)
-        if l not in m:
-            m.append(l)
+        cnt +=1
         return
-    
-    if a+1<5:
-        if visit[number[a+1][b]]==False:
-            visit[number[a+1][b]] = True
-            find(a+1, b, c+arr[a+1][b],d+1)
-            visit[number[a+1][b]] = False
-        else:
-            find(a+1,b,c+arr[a+1][b],d)
-    if a-1>=0:
-        if visit[number[a-1][b]] == False:
-            visit[number[a-1][b]] = True
-            find(a-1, b, c+arr[a-1][b], d+1)
-            visit[number[a-1][b]] = False
-        else:
-            find(a-1, b, c+arr[a-1][b], d)
-    if b+1<5:
-        if not visit[number[a][b+1]]:
-            visit[number[a][b+1]] = True    
-            find(a, b+1, c+arr[a][b+1], d+1)
-            visit[number[a][b+1]] = False
-        else:
-            find(a, b+1, c+arr[a][b+1], d)
-    if b-1>=0:
-        if not visit[number[a][b-1]]:
-            visit[number[a][b-1]] = True
-            find(a, b-1, c+arr[a][b-1], d+1)
-            visit[number[a][b-1]] = False
-        else:
-            find(a, b-1, c+arr[a][b-1], d)
-        
-    
+    if b>=2:
+        for i in range(len(m)):
+            flag = 1
+            for j in range(len(m)):
+                if m[i] + 1 == m[j] and (m[i]+1)%5!=0:
+                    flag = 0
+                elif m[i] + 5 == m[j]:
+                    flag = 0
+                elif m[i] - 1 == m[j] and m[i]%5!=0:
+                    flag = 0
+                elif m[i] - 5 == m[j]:
+                    flag = 0
+            if flag:
+                return
+    if b >= 4:
+        c = 0
+        for i in range(len(m)):
+            if m[i] in s:
+                c+=1
+        if c<b-3:
+            return
+    for i in range(a+1, 25):
+        if visit[i]: continue
+        visit[i] = True
+        m.append(i)
+        comb(i, b+1)
+        m.pop()
+        visit[i] = False
+
 arr=[[i for i in input()] for _ in range(5)]
 number = [[i for i in range(5*(j), 5*(j+1))] for j in range(5)]
-m = []
+visit = [False] * (25)
+cnt = 0
+s = []
 for i in range(5):
     for j in range(5):
-        visit = [False] * (25)
-        visit[number[i][j]] = True
-        find(i, j, arr[i][j], 1)
-print(len(m))
-
-
-
-
-# def find(a, b, c, d, e):
-#     global m
-#     if d == 7:
-#         # print(c)
-#         l = []
-#         if c.count('S')<4: return
-#         # print(c)
-#         for i in range(len(visit)):
-#             if visit[i]:
-#                 l.append(i)
-#         print(l)
-#         if l not in m:
-#             m.append(l)
-#         return
-#     # for i in range(25):
-#     #     find()
-    
-# def comb(a, b):
-#     if b == 7:
-#         for i in range(7):
-#             flag = 1
-#             for j in range(7):
-#                 if i == j: continue
-#                 if l[j]-1<=l[i]<=l[j]+1:
-#                     flag = 0
-#                 if l[i]
-
-#         return
-#     for i in range(a+1,25):
-#         l.append(i)
-#         comb(i, b+1)
-#         l.pop()
-        
-    
-# arr=[[i for i in input()] for _ in range(5)]
-# number = [[i for i in range(5*(j), 5*(j+1))] for j in range(5)]
-# m = []
-# for i in range(25-7):
-#     l = []
-#     l.append(i)
-#     comb(i, 1)
-
-
-
-# for i in range(5):
-#     for j in range(5):
-#         visit = [False] * (25)
-#         visit[number[i][j]] = True
-#         find(i, j, arr[i][j], 1, number[i][j])
-# print(len(m))
+        if arr[i][j] == 'S':
+            s.append(number[i][j])
+for i in range(19):
+    if i != 5: continue
+    m = []
+    visit = [False] * (25)
+    visit[i] = True
+    m.append(i)
+    comb(i, 1)
+print(cnt)
