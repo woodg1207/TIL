@@ -27,7 +27,7 @@ def comb(a, b):
         print(m)
         cnt +=1
         return
-    # if b>=2:
+    # if b>=3:
     #     for i in range(len(m)):
     #         flag = 1
     #         for j in range(len(m)):
