@@ -29,9 +29,8 @@ G = [[] for _ in range(N+1)]
 visit = [False] * (N+1)
 for i in range(M):
     G[arr[i][1]].append(arr[i][0])
-# print(G)
 for i in range(1, len(visit)):
-    # print(i)
     if visit[i]: continue
     dfs(i)
     print(i,end=' ')
+print()
