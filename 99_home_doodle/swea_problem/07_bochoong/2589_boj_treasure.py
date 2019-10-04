@@ -25,14 +25,14 @@ def bfs(a, b, c):
                 if 0<=nc<M and arr[n[0]][nc] == 'L':
                     if visit[n[0]][nc]!=c:
                         q.append([n[0], nc])
-    # l.append(cnt)
+    l.append(cnt)
     if m<cnt:
         m = cnt
 
 N, M = map(int,input().split())
 arr = [[i for i in input()] for _ in range(N)]
 m = 0
-# l = []
+l = []
 x = 1
 visit = [[0]*M for _ in range(N)]
 for i in range(N):
@@ -41,4 +41,4 @@ for i in range(N):
         bfs(i, j, x)
         x+=1
 print(m)
-# print(l)
+print(l)
