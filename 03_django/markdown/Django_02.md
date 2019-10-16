@@ -268,26 +268,26 @@ path('art/', views.art),
       ```python
       # pages/views.py
       
-      def user_new(request):
-          return render(request, 'user_new.html')
+      def user_create(request):
+          # print(request.POST)
+          name = request.POST.get('name')
+          pwd = request.POST.get('pwd')
+      		context = {'name': name, 'pwd': pwd}
+          return render(request, 'user_create.html', context)
       ```
       
       ```python
-      # pages/urls.py
+      # django_intro/urls.py
       
-      path('user_new/', views.user_new),
+      path('user_create/', views.user_create),
       ...
       ```
       
       ```django
-      <!--django_intro/templates/user_new.html-->
+      <!-- django_intro/templates/user_create.html -->
       
-      <form action="/user_create/" method="POST">
-          {% csrf_token %}
-          이름: <input type="text" name="name">
-          패스워드: <input type="password" name="pwd">
-          <input type="submit" value="Submit">
-      </form>
+      <p>이름: {{ name }}</p>
+      <p>패스워드: {{ pwd }}</p>
       ```
       
       
