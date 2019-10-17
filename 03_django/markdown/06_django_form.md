@@ -246,7 +246,7 @@ def create(request):
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
-        form = ArticleForm(request.POS, instance=article)
+        form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             article = form.save()
             return redirect(article)
