@@ -3,9 +3,7 @@ sys.stdin = open('l.txt', 'r')
 
 def find(a, b):
     if b == 6:
-        for i in l:
-            print(i, end= ' ')
-        print()
+        print(*l)
         return
     for i in range(a+1, arr[0]+1):
         l.append(arr[i])

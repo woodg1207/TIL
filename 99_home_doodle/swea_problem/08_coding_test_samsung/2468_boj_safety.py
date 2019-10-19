@@ -19,7 +19,7 @@ def find(r,c,x):
                 if arr[nr][nc]-x>0:
                     q.append((nr,nc))
 
-
+ 
 N = int(input())
 arr = [list(map(int,input().split())) for _ in range(N)]
 M = 0
