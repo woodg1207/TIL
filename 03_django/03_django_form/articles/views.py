@@ -1,17 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, Comment
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_POST
 from .forms import ArticleForm, CommentForm
 from IPython import embed
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def index(request):
+    # embed()
+    # session 에 visits_num 키로 접근해 값을 가져온다.
+    # 기본적으로 존재하지 않는 키이기 때문에 키가 없다면(방문한 적이 없다면) 
+    # 0값을 가져오도록 한다.
+    visits_num = request.session.get('visits_num',0)
+    # 그리고 가져온 값을 session에 visits_num 에 매번 1씩 증가한 값으로 할당한다.
+    # user의 다음 방문을 위해
+    request.session['visits_num'] = visits_num + 1
+    # session data 안에 있는 새로운 정보를 수정 했다면 django 는 수정한 사실을
+    # 알아채지 못하기 때문에 다음과 같이 설정.
+    request.session.modified = True
+ 
     articles = Article.objects.all()
-    # articles = get_list_or_404(Article)
-    context = {'articles':articles}
+    context = {'articles':articles, 'visits_num': visits_num}
     return render(request, 'articles/index.html', context)
 
+@login_required
 def create(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
@@ -35,13 +49,15 @@ def detail(request, article_pk):
     context = {'article': article,'comment_form':comment_form, 'comments':comments, }
     return render(request, 'articles/detail.html', context)
 
+
 @require_POST
 def delete(request, article_pk):
-    article = get_object_or_404(Article, pk=article_pk)
-    article.delete()
+    if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
+        article = get_object_or_404(Article, pk=article_pk)
+        article.delete()
     return redirect('articles:index')
 
-
+@login_required
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
@@ -57,18 +73,24 @@ def update(request, article_pk):
     return render(request, 'articles/form.html',context)
 
 #이미 POST만 들어오기 때문에  조건문이 사라진다. 
-@require_POST
-def comments_create(request, article_pk):
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        # 객체를 Create하지만, DB에 레코드는 작성하지 않는다.
-        comment = comment_form.save(commit=False)
-        comment.article_id = article_pk
-        comment.save()
-    return redirect('articles:detail',article_pk)
 
 @require_POST
+def comments_create(request, article_pk):
+    if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            # 객체를 Create하지만, DB에 레코드는 작성하지 않는다.
+            comment = comment_form.save(commit=False)
+            comment.article_id = article_pk
+            comment.save()
+    return redirect('articles:detail',article_pk)
+
+# @login_required
+@require_POST
 def comments_delete(request, article_pk, comment_pk):
-    comment = get_object_or_404(Comment, pk=comment_pk)
-    comment.delete()
-    return redirect('articles:detail', article_pk)
+    if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        comment.delete()
+        return redirect('articles:detail', article_pk)
+    return HttpResponse('You are Unauthorized :(', status=401) # 시멘틱 표현
+

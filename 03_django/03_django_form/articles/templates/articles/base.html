@@ -1,6 +1,7 @@
 {% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,33 @@
   {% bootstrap_css %}
   <title>Document</title>
 </head>
+
 <body>
   <div class="container">
+    <!-- request.user.is_authenticated 와 같다. -->
+    {% if user.is_authenticated %}
+    <h3>
+      Hello, {{ user.username }}
+      <a href="{% url 'accounts:update' %}">[정보 수정]</a>
+      <a href="{% url 'accounts:change_password' %}">[비밀번호 수정]</a>
+      <a href="{% url 'accounts:logout' %}">[로그 아웃]</a>
+      <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline;">
+        {% csrf_token %}
+        <input type="submit" value="회원 탈퇴" class="btn btn-danger">
+      </form>
+    </h3>
+    {% else %}
+    <h3>
+      <a href="{% url 'accounts:login' %}"> 로그인 </a>
+      <a href="{% url 'accounts:signup' %}"> 회원가입 </a>
+    </h3>
+    {% endif %}
+    <hr>
     {% block content %}
     {% endblock content %}
   </div>
 
   {% bootstrap_javascript jquery='full' %}
 </body>
+
 </html>
