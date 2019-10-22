@@ -1,0 +1,10 @@
+{% extends 'articles/base.html' %}
+{% block content %}
+
+<h1 class="text-center">detail</h1>
+<p>{{article.pk}}</p>
+<p>{{article.title}}</p>
+<a href="{% url 'articles:index' %}">back</a>
+<br>
+<a href="{% url 'articles:delete' article.pk %}">delete</a>
+{% endblock content %}
