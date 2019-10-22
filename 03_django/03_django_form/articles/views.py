@@ -1,3 +1,4 @@
+import hashlib
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, Comment
 from django.http import Http404, HttpResponse
@@ -9,7 +10,15 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    # embed()
+    ##gravatar  필터(accounts/templatetags/gavatar.py)로 대체됨. 필요없어짐
+    # if request.user.is_authenticated:
+    #     gravatar_url = hashlib.md5(request.user.email.encode('utf-8').lower().strip()).hexdigest()
+    #     # gravatar_url = None
+    # else:
+    #     gravatar_url = None
+
+
+
     # session 에 visits_num 키로 접근해 값을 가져온다.
     # 기본적으로 존재하지 않는 키이기 때문에 키가 없다면(방문한 적이 없다면) 
     # 0값을 가져오도록 한다.
@@ -22,7 +31,7 @@ def index(request):
     request.session.modified = True
  
     articles = Article.objects.all()
-    context = {'articles':articles, 'visits_num': visits_num}
+    context = {'articles':articles, 'visits_num': visits_num, }
     return render(request, 'articles/index.html', context)
 
 @login_required
@@ -32,7 +41,11 @@ def create(request):
         # form 이 유효한지 체크한다. 
         if form.is_valid(): #유효성 검사
             # ModelsForm으로 간결해짐
-            article = form.save()
+            article = form.save(commit=False)
+            # 저장을 하지는 않음 commit
+            # article.user_id = request.user.pk 같은 표현
+            article.user = request.user
+            article.save()
             return redirect(article)
     else:
         form = ArticleForm()
@@ -54,19 +67,26 @@ def detail(request, article_pk):
 def delete(request, article_pk):
     if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
         article = get_object_or_404(Article, pk=article_pk)
-        article.delete()
+        if request.user==article.user:
+            article.delete()
+        else:
+            return redirect(article)
     return redirect('articles:index')
 
 @login_required
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
-        if form.is_valid():
-            article = form.save()
-            return redirect(article)
+    if request.user == article.user:
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=article)
+            #instance : 전에 있는 내용을 채워주는것
+            if form.is_valid():
+                article = form.save()
+                return redirect(article)
+        else:
+            form = ArticleForm(instance=article)
     else:
-        form = ArticleForm(instance=article)
+        return redirect('articles:index')
     # 1. POST :  검증에 실패한 form(오류 메세지도 포함된 상태)
     # 2. GET : 초기하된 form 
     context = {'form':form,'article':article,}
@@ -79,9 +99,10 @@ def comments_create(request, article_pk):
     if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            # 객체를 Create하지만, DB에 레코드는 작성하지 않는다.
+            # commit : 객체를 Create하지만, DB에 레코드는 작성하지 않는다.
             comment = comment_form.save(commit=False)
             comment.article_id = article_pk
+            comment.user = request.user
             comment.save()
     return redirect('articles:detail',article_pk)
 
@@ -90,7 +111,24 @@ def comments_create(request, article_pk):
 def comments_delete(request, article_pk, comment_pk):
     if request.user.is_authenticated:#로그인 판단 decorator를 사용하면 405에러가 발생
         comment = get_object_or_404(Comment, pk=comment_pk)
-        comment.delete()
+        if request.user == comment.user:    
+            comment.delete()
         return redirect('articles:detail', article_pk)
     return HttpResponse('You are Unauthorized :(', status=401) # 시멘틱 표현
 
+def like(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    
+    # 1.
+    # # pk 가 없어도 상관이 없는 filter를 사용.(get()대신)
+    if article.like_users.filter(pk=request.user.pk).exists():
+        article.like_users.remove(request.user)
+    else:
+        article.like_users.add(request.user)
+    # 2. 
+    # # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속 유저가 있다면 좋아요를 취소
+    # if request.user in article.like_users.all():
+    #     article.like_users.remove(request.user) # 좋아요 취소
+    # else:
+    #     article.like_users.add(request.user) # 좋아요 
+    return redirect('articles:index')

@@ -9,9 +9,6 @@
 {% endif %}
 <hr>
 {% for article in articles %}
-  <p>No. {{article.pk}}</p>
-  <p>Title : {{article.title}}</p>
-  <a href="{{ article.get_absolute_url }}">[DETAIL]</a>
-  <hr>
+  {% include 'articles/_article.html' %}
 {% endfor %}
 {% endblock  %}

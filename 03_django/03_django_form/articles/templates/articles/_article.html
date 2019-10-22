@@ -1,0 +1,28 @@
+<div class="card mb-3">
+  <div class="card-header">
+    no.{{article.pk}}>작성자 : {{article.user}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Title : {{article.title}}</h5>
+
+    <hr>
+    <p class="card-text">
+      <a href="{% url 'articles:like' article.pk %}">
+        {% if user in article.like_users.all %}
+          <i class="fas fa-heart" style="color: red"></i>
+        {% else %}
+          <i class="far fa-heart" style="color: black;"></i>
+        {% endif %}
+      </a>
+      {{article.like_users.all| length}} 명이 이글을 좋아합니다. <br>
+    </p>
+    <a href="{{article.get_absolute_url}}" class="btn btn-primary">DETAIL</a>
+  </div>
+</div>
+
+
+
+
+
+
+

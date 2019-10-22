@@ -8,29 +8,41 @@
 <p>{{article.created_at|date:"SHORT_DATE_FORMAT"}}</p>
 <p>{{article.updated_at|date:"M, J, Y"}}</p>
 <a href=" {% url 'articles:index' %} ">[back]</a>
+{% if request.user == article.user %}
 <a href="{% url 'articles:update' article.pk%}">[update]</a>
 <form action="{% url 'articles:delete' article.pk %}" method="POST">
   {% csrf_token %}
   <input type="submit" value="[delete]">
 </form>
+{% endif %}
+
 <hr>
 <!-- 댓글 출력 form -->
 {% for comment in comments %}
- <div>
-  댓글 {{ forloop.revcounter }} : {{ comment.content }}
-  <form action=" {% url 'articles:comments_delete' article.pk comment.pk %} " method="POST" style="display: inline">
-    {% csrf_token %}
-    <input type="submit" value="DELETE">
-  </form>
- </div>
+<div>
+  댓글 {{ forloop.revcounter }} : {{ comment.content }} : 작성자. {{ comment.user }}
+  {% if request.user == comment.user %}
+    <form action=" {% url 'articles:comments_delete' article.pk comment.pk %} " method="POST" style="display: inline">
+      {% csrf_token %}
+      <input type="submit" value="DELETE">
+    </form>
+  {% endif %}
+
+</div>
+<br>
 {% empty %}
 <p><b>댓글이 없습니다.</b></p>
 {% endfor %}
-<!-- 댓글 입력 form -->
+<!-- 댓글 입력 form ++ 추가 비로그인시 댓글을 볼수 없다.-->
+<hr>
+{% if request.user.is_authenticated %}
 <form action=" {% url 'articles:comments_create' article.pk %} " method="POST">
   {% csrf_token %}
   {{ comment_form }}
   <input type="submit" value="submit">
 </form>
+{% else %}
+<a href="{% url 'accounts:login' %}">로그인 이후 이용해주세요 :D</a>
+{% endif %}
 
 {% endblock content %}

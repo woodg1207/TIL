@@ -49,7 +49,7 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         # fields = ('title','content',...이어서)
-        fields = '__all__'
+        fields = ('title', 'content',)
         # exclude = ('title')# title만 제외 할때 
 
 class CommentForm(forms.ModelForm):
