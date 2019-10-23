@@ -6,6 +6,7 @@ from django.views.decorators.http import require_POST
 from .forms import ArticleForm, CommentForm
 from IPython import embed
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -57,9 +58,13 @@ def create(request):
 
 def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
+    # person = get_object_or_404(get_user_model(), pk=article.user.pk)
+    person = get_object_or_404(get_user_model(), pk=article.user_id) # user_id 외래키
     comments = article.comment_set.all() # article 의 모든 댓글 
     comment_form = CommentForm() # 댓글 폼
-    context = {'article': article,'comment_form':comment_form, 'comments':comments, }
+
+
+    context = {'article': article,'comment_form':comment_form, 'comments':comments, 'person':person,}
     return render(request, 'articles/detail.html', context)
 
 
@@ -116,9 +121,10 @@ def comments_delete(request, article_pk, comment_pk):
         return redirect('articles:detail', article_pk)
     return HttpResponse('You are Unauthorized :(', status=401) # 시멘틱 표현
 
+@login_required
 def like(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    
+
     # 1.
     # # pk 가 없어도 상관이 없는 filter를 사용.(get()대신)
     if article.like_users.filter(pk=request.user.pk).exists():
@@ -132,3 +138,16 @@ def like(request, article_pk):
     # else:
     #     article.like_users.add(request.user) # 좋아요 
     return redirect('articles:index')
+
+def follow(request, article_pk, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+
+    user = request.user
+    # 내(request.user)가 게시글 유저(poson) 팔로워 목록에 이미 존재 한다면,
+    # if user in person.followers.all(): 조건문을 이걸로도 가능
+    if person.followers.filter(pk=user.pk).exists():
+        person.followers.remove(user)
+    else:
+        person.followers.add(user)
+    return redirect('articles:detail', article_pk)
+

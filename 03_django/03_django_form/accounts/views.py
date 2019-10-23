@@ -1,13 +1,13 @@
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from IPython import embed
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.views.decorators.http import require_POST
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-
 # Create your views here.
 def signup(request):
     # user 가 인증된 상태면 안들어가 지도록
@@ -81,3 +81,12 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     context = {'form': form,}
     return render(request, 'accounts/auth_form.html', context)
+
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    # html에서 with 구문을 사용하면 조회를 하는 횟수가 줄어든다. markdown 참조
+    articles = person.article_set.all() # 역참조
+    comments = person.comment_set.all()
+    context = {'person': person,'articles': articles, 'comments':comments,}
+    return render(request, 'accounts/profile.html', context)
+

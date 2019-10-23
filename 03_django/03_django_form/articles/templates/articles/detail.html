@@ -44,5 +44,5 @@
 {% else %}
 <a href="{% url 'accounts:login' %}">로그인 이후 이용해주세요 :D</a>
 {% endif %}
-
+{% include 'articles/_follow.html' %}
 {% endblock content %}

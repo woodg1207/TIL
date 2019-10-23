@@ -130,7 +130,7 @@ STATIC_URL = '/static/'
 # 보통 boothsrap, 외부 템플릿을 저장하기 위해 경로를 만듦
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'crud','assets'),
-]
+]#### 10.23 새로운 필기  09_django..md 를 볼것
 # STATIC_URL 와 비슷한 역할
 #업로드 된 파일의 URL주소를 만들어 주는 역할.
 #STATIC_URL과 값이 달라진다.
