@@ -17,4 +17,10 @@ def signup(request):
     context = {'form':form, }
     return render(request, 'accounts/signup.html', context)
 
-# def login(request):
+def login(request):
+    if request == 'POST':
+        pass
+    else:
+        form = AuthenticationForm()
+    context = {'form':form,}
+    return render(request, 'accounts/login.html', context)
