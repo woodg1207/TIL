@@ -1,12 +1,12 @@
 import hashlib
+from IPython import embed
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article, Comment
+from .models import Article, Comment, Hashtag
+from .forms import ArticleForm, CommentForm
 from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_POST
-from .forms import ArticleForm, CommentForm
-from IPython import embed
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -47,6 +47,15 @@ def create(request):
             # article.user_id = request.user.pk 같은 표현
             article.user = request.user
             article.save()
+            ## hashtag는 이미 저장 된 아티클의 내용을 이용해야한다.
+            #### hashtag 시작점
+            for word in article.content.split(): # content를 공백기준으로 list로 변경
+                if word.startswith('#'):# '#'으로 시작하는 요소만 선택
+                    hashtag, created = Hashtag.objects.get_or_create(content=word) 
+                    #tuple형식으로 온다.
+                    # word와 같은 해시태그를 찾는데 있으면 기존 객체(.get), 없으면 새로운 객체 생성(.create)
+                    article.hashtags.add(hashtag) # created를 사용하지 않았다면 hashtag[0]으로 작성
+
             return redirect(article)
     else:
         form = ArticleForm()
@@ -87,6 +96,12 @@ def update(request, article_pk):
             #instance : 전에 있는 내용을 채워주는것
             if form.is_valid():
                 article = form.save()
+                ## hash
+                article.hashtags.clear() # 해당 article의 hashtag 전체 삭제
+                for word in article.content.split(): 
+                    if word.startswith('#'):
+                        hashtag, created = Hashtag.objects.get_or_create(content=word) 
+                        article.hashtags.add(hashtag)
                 return redirect(article)
         else:
             form = ArticleForm(instance=article)
@@ -151,3 +166,8 @@ def follow(request, article_pk, user_pk):
         person.followers.add(user)
     return redirect('articles:detail', article_pk)
 
+def hashtag(request, hash_pk):
+    hashtag = get_object_or_404(Hashtag, pk=hash_pk)
+    articles = hashtag.article_set.order_by('-pk')# 역참조, 최신글 순서
+    context = {'hashtag': hashtag, 'articles':articles, }
+    return render(request, 'articles/hashtag.html', context)

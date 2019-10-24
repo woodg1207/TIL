@@ -1,4 +1,4 @@
-"""myform URL Configuration
+"""crud URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -18,7 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
-    path('accounts/', include('allauth.urls')),
     path('articles/', include('articles.urls')),
     path('admin/', admin.site.urls),
 ]
