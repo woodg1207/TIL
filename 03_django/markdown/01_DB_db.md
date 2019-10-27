@@ -118,7 +118,7 @@ rowid       name        age         address
 
 - NOT NULL
 
-```bash
+```sqlite
 sqlite> INSERT INTO classmates (name, age) VALUES('홍길동', 23);
 Error: NOT NULL constraint failed: classmates.address
 
@@ -139,7 +139,7 @@ sqlite> INSERT INTO classmates VALUES ('홍길동',30,'서울'), ('김철수',23
 
 - 조회 
 
-```bash
+```sqlite
 sqlite> SELECT rowid, name FROM classmates;
 rowid       name
 ----------  ----------
@@ -249,7 +249,7 @@ rowid       name        age         address
 
 #### WHERE
 
-```sql
+```sqlite
 sqlite> SELECT * FROM users WHERE age >= 30;  --> 이상
 sqlite> select first_name from users where age >= 30;
 
