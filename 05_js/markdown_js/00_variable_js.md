@@ -276,3 +276,141 @@ console.log(b)
 
 ##### Reference
 
+
+
+#### 연산자
+
+동등연산자  	`==`
+
+- ```js
+  const a =1
+  undefined
+  const b='1'
+  undefined
+  a==b
+  true
+  a===Number(b)
+  true
+  ```
+
+  자동 형변환
+
+- ```js
+  8*null
+  0
+  '5'-1
+  4
+  '5'+1
+  "51"
+  'five'*2
+  NaN
+  ```
+
+
+
+일치 연산자 `===`
+
+- ```js
+  a === b
+  false
+  a === Number(b)
+  true
+  ```
+
+
+
+논리 연산자 `&&`, `||`, `!`
+
+```js
+true && false
+false
+true && true
+true
+1 && 2
+2
+1 && 1
+1
+false || true
+true
+1 || 0
+1
+7 || 4
+7
+4 || 7
+4
+!true
+false
+```
+
+
+
+삼항 연산자
+
+boolean 값이 true이면 왼쪽값, false라면 오른쪽 값이 나온다.
+
+```js
+true ? 1:2
+1
+false ? 1:2
+2
+
+const result = Math.PI > 4 ? 'yes' : 'no'
+undefined
+result
+"no"
+```
+
+
+
+`prompt`
+
+```js
+const userName = prompt('Hello! Who r u?')
+undefined
+userName
+"harry"
+```
+
+
+
+if 문
+
+```js
+if (userName === '1q2w3e4r') {
+	message = '<h1> This is admin page</h1>'
+} else if (userName === 'ssafy') {
+	message = '<h1> You r from ssafy</h1>'
+} else {
+	message = `<h1> hello ${userName}</h1>`
+}
+"<h1> hello harry</h1>"
+document.write(message)
+```
+
+
+
+switch 문 : `break`가 있어야한다. 
+
+```js
+switch(userName) {
+    case '1q2w3e4r': {
+		message = '<h1> this is admin </h1>'
+		console.log(message)
+		break
+    }
+    case 'ssfy': {
+		message = '<h1> you r from ssafy </h1>'
+		console.log(message)
+		break
+    }
+    default: {
+        message = `<h1> hello, ${userName}</h1>`
+		console.log(message)
+		break
+    }
+}
+```
+
+
+
+## Datastructure object:array
