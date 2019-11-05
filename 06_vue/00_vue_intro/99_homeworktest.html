@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app1">
+    <button @click="btn">Toggle</button>
+    <div :style="{ color: m_color }">
+      {{ message }}
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app1 = new Vue({
+      el: '#app1',
+      data: {
+        m_color: 'red',
+        message: '빨강과 파랑을 섞으면 보라색이 됩니다.',
+        flag: true,
+      },
+      methods: {
+        btn: function () {
+          if (this.flag) {
+            this.flag = false
+            this.m_color = 'red'
+          }else {
+            this.flag = true
+            this.m_color = 'blue'
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

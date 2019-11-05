@@ -9,12 +9,29 @@
 </head>
 
 <body>
+  <div id="app">
+    
+    <span v-text="name"></span>
+    <span>{{name}}</span>
+    
+    {{name2}}
+    <span v-html="name2"></span>
 
+    <p v-if="false">{{name3}}</p>
+    <p v-show="false">{{name3}}</p>
+  </div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    
+    const app = new Vue({
+      el:'#app',
+      data : {
+        name: 'harry',
+        name2: '<h1> h1 tag </h1>',
+        name3: 'harrrrrrrry',
+      }
+    })
   </script>
 </body>
 

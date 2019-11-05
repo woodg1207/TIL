@@ -23,21 +23,21 @@
     </select>
 
 
-    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px'}">
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px'}">
       Style test
     </div>
-    <img v-bind:src="vueImage" alt="todo-list">
-    <div v-for="todo in computedTodosByStatus" v-bind:class="{ completed: todo.completed }" v-bind:key="todo.id">
+    <img :src="vueImage" alt="todo-list">
+    <div v-for="todo in computedTodosByStatus" :class="{ completed: todo.completed }" :key="todo.id">
       <!-- <div v-for="todo in todos" v-bind:class="todo.completed ? 'completed' : '' "> -->
       <input type="checkbox" v-model="todo.completed">
       {{ todo.content }}
     </div>
     <div>
-      <input type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
-      <button v-on:click="addTodo">+</button>
+      <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+      <button @click="addTodo">+</button>
     </div>
     <footer>
-      <button v-on:click="clearCompleted">clear</button>
+      <button @click="clearCompleted">clear</button>
     </footer>
   </div>
 
@@ -55,8 +55,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
       }
     }
-
-
     //
     const app = new Vue({
       el: '#app',
