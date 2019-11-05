@@ -131,3 +131,61 @@
 
 - vueImage = '' 이미지 저장.
 
+
+
+#### v-model  
+
+02_vue_.. html
+
+- input tag 의  value- View ----- v-model ------------data(VM)
+
+
+
+### computed
+
+- 미리 계산된 값을 반환.
+- 종속 대상을 따라 저장(캐싱)되는 특성이 있다.
+- 연산이 많이 필요한 경우 템플릿 안에서 연산 표현식을 사용하는 것보다  computed를 사용하는 것을 권장.
+- `{{ newTodo.split('').reverse().join('') }}`
+
+```vue
+computed: {
+	reverseNewTodo: function(){
+		return this.newTodo.split('').reverse().join('')
+	}
+}
+```
+
+
+
+#### Watch
+
+- Vue 인스턴스의 data 변경하고 이에 반응.
+- 데이터 변경에 대한 응답으로 비동기 또는 시간이 많이 소요되는 조작을 수행하려는 경우에 적합.
+- 특정 데이터가 변경되었을 때 정의한 함수를 실행.
+- 
+
+```vue
+watch: {
+        todos:{
+          // handler 특정데이터가 변경 되었을 때, 실행할 함수
+          handler: function(todos){
+            todoStorage.save(todos)
+          },
+          // 객체의 nested item 들도 관찰할지 유무를 설정. true인 경우 내부 요소들도 감시하도록 함.
+          deep: true,
+        }
+      },
+```
+
+
+
+#### mounted
+
+```vue
+// 새로고침 될때(DOM과 Vue instance가 연결되는 시점) 실행되는것
+mounted: function(){
+	this.todos = todoStorage.fetch()
+},
+```
+
