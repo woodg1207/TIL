@@ -253,3 +253,12 @@ mounted: function(){
 - 반복되는 컴포넌트에 서로 다른 정보가 들어가야 할 때 사용
 - 하위(작식)에서 상위(부모) 데이터를 직접 참조해선 안되고 실제로도 안된다.
 - `props`옵션을 통해 부모-> 자시긍로 데이터를 전달.
+
+- 전달 하려고 하는 데이터의 이름을 태그 내의 속성으로, 내용을 속성값으로 넣어준다.
+
+  - ```vue
+    <todo-list category="취업특강"></todo-list>
+    <todo-list category="SSAFY"></todo-list>
+    <todo-list category="기타"></todo-list>
+    ```
+
