@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+</head>
+<body>
+  <div id="app">
+    <select v-model="dogs">
+      <option disabled value="">선택</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+    </select>
+    <button @click="getDogImage">Get {{dogs}} Dogs</button>
+    <br>
+    <img  v-for="image in images" :src="image.img" alt="img">
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        images: [],
+        dogs:'',
+      },
+      methods:{
+        getDogImage: function () {
+          const dogUrl = `https://dog.ceo/api/breed/shiba/images/random/${this.dogs}`
+
+          axios.get(dogUrl)
+            .then(response => {
+              for (i=0; i<this.dogs; i++){
+                this.images.push({img:response.data.message[i]})
+              }
+            })
+        },
+      }
+    })
+  </script>
+</body>
+</html>
