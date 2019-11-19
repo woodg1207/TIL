@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '42t8=(ek(gt2mxipd-5pjq7zc1=4@wdqr4+g_=&tl=6#=dunks'
+SECRET_KEY = '$_o@n&b))ydm$izpt)055s06r763w=)zfgyirf(z#9xn^5rns)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +33,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'todos',
+    'rest_framework',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +43,35 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# DRF jwt 설정
+REST_FRAMEWORK = {
+    # 로그인 여부를 확인하는 클래스
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    # 인증 여부를 확인하는 클래스
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    # JWT 를 encrypt 함. 절대 외부 노출금지
+    'JWT_SECRET_KEY': SECRET_KEY,
+    # 토큰 해싱 알고리즘(default : HS256)
+    'JWT_ALGORITHM': 'HS256',
+    # 7일간 유효한 토큰
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    # 토큰 갱신 허용 여부
+    'JWT_ALLOW_REFRESH': True,
+    # 28일마다 토큰이 갱신(유효기간 연장시)
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +80,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 원래대로라면 아래와 같이 허용할 도메인 리스트를 작성해야 하지만 
+# 개발 테스트 단계이므로 모든 요청을 허용하기 위해 주석처리 한다.
+# CORS_ORIGIN_WHITELIST = [
+# ]
+
+# 모든 요청을 허용하도록 설정
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'todoback.urls'
 
@@ -119,3 +158,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'todos.User'
