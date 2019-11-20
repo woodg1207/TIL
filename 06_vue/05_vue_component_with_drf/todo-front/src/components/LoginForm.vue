@@ -49,25 +49,34 @@
           username:'',
           password:'',
         },
-        loading: false,
+        // loading: false,
         errors: [],
+      }
+    },
+    computed: {
+      loading: function() {
+        return this.$store.state.loading
       }
     },
     methods: {
       login() {
         if (this.checkForm()){
-          this.loading = true
+          // this.loading = true  //vuex를 사용해서 필요없다.
+          this.$store.dispatch('startLoading')
           // django jwt를 생성하는 주소로 요청을 보냄.
           // 이때 post 요청으로 보내야 하며 사용자가 입력한 로그인 정보(credentials)를 같이 넘겨야 함.
           axios.post('http://127.0.0.1:8000/api-token-auth/', this.credentials)
           .then(res=> {
-            this.$session.start()
-            this.$session.set('jwt', res.data.token)
+            // this.$session.start()
+            // this.$session.set('jwt', res.data.token)
+            this.$store.dispatch('endLoading')
+            this.$store.dispatch('login', res.data.token)
             router.push('/')       
           })
           .catch(err => {
             // 3. 실패시 loading의 상태를 다시 false로 변경
-            this.loading = false
+            // this.loading = false
+            this.$store.dispatch('endLoading')
             console.log(err)
           })
         } else {

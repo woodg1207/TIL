@@ -1,25 +1,85 @@
 <template>
   <div class="todo-list">
-    <div class="card mb-2" v-for="todo in todos" :key="todo.id">
+    <div class="card mb-1" v-for="todo in todos" :key="todo.id">
       <div class="card-body">
-        <span>{{ todo.title }}</span>
+        <span @click="updateTodo(todo)" :class="{complete: todo.completed}">{{ todo.title }}</span>
+        <span @click="deleteTodo(todo)">🗑️</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     name:'TodoList',
     props:{
       todos:{
+        // Array에서 특정아이템을 삭제
+        // splice()를 사용한다. md 참조
         type:Array,
         required: true,
       },
+    },
+    computed: {
+      requestHeader: function() {
+        return this.$store.getters.requestHeader
+      }
+    },
+    methods: {
+      deleteTodo(todo) {
+        // this.$session.start()
+        // const token = this.$session.get('jwt')
+        // const requestHeader = {
+        //   headers: {
+        //     Authorization:'JWT '+token
+        //   }
+        // }
+        axios.delete(`http://127.0.0.1:8000/api/v1/todos/${todo.id}/`, this.requestHeader)
+          .then(res=>{
+            console.log(res)
+            const targetTodo = this.todos.find(function(el) {
+              return el == todo
+            })
+            const idx = this.todos.indexOf(targetTodo)
+            if (idx > -1) {
+              this.todos.splice(idx, 1)
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      updateTodo(todo) {
+        // this.$session.start()
+        // const token = this.$session.get('jwt')
+        // const requestHeader = {
+        //   headers: {
+        //     Authorization:'JWT '+token
+        //   }
+        // }
+        const reqeustForm = new FormData()
+        reqeustForm.append('id', todo.id)
+        reqeustForm.append('title', todo.title)
+        reqeustForm.append('user', todo.user)
+        reqeustForm.append('completed', !todo.completed)
+        
+        axios.put(`http://127.0.0.1:8000/api/v1/todos/${todo.id}/`, reqeustForm, this.requestHeader)
+          .then(res => {
+            console.log(res)
+            todo.completed = !todo.completed
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     },
   }
 </script>
 
 <style>
-
+.complete {
+  text-decoration: line-through;
+  color: rgb(112, 112, 112)
+}
 </style>

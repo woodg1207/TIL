@@ -250,3 +250,11 @@ git branch -d feature/article
 master를 fork함(github내에서 한다.)  --> fork한 master를 clone 
 
 --> git remote add upstream[master의 주소] --> git checkout - b feature/login --수정--> git push -u origin feature/login
+
+- master에서 병합함
+
+- ```bash
+  git pull upstream master
+  업데이트 버전을 받아오는 것.
+  
+  ```
