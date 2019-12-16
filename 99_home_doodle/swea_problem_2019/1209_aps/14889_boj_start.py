@@ -5,7 +5,8 @@ N = int(input())
 arr = [list(map(int, input().split())) for _ in range(N)]
 player = [i for i in range(N)]
 
-def build(cnt):
+def build(s, cnt):
+    global m
     if cnt == N/2:
         A, B = [], []
         for i in range(N):
@@ -13,26 +14,27 @@ def build(cnt):
                 A.append(i)
             else:
                 B.append(i)
-        synergy(A)
-        return
-    for i in range(N):
+        sa = sb = 0
+        for i in range(len(A)):
+            for j in range(i, len(A)):
+                sa += arr[A[i]][A[j]] + arr[A[j]][A[i]]
+                sb += arr[B[i]][B[j]] + arr[B[j]][B[i]]
+        re = abs(sa-sb)
+        if re == 0:
+            m = 0
+            return
+        elif re<m:
+            m = re
+
+    for i in range(s, N):
         if v[i]:continue
-        l.append(i)
+        # l.append(i)
         v[i] = True
-        build(cnt+1)
-        l.pop()
+        build(i, cnt+1)
+        # l.pop()
         v[i] = False
-
-def synergy(a):
-    for i in range(len(a)):
-        s = []
-        s.append(a[i])
-        for j in range(len(a)):
-            
-
-for i in range(N//2):
-    l = []
-    v = [False] * N
-    l.append(i)
-    v[i] = True
-    build(1)
+m = 100000
+v = [False] * N
+v[0] = True
+build(0,1)
+print(m)
