@@ -9,11 +9,11 @@ def find(r, c, dir):
     if dir != 1:
         l = 2
     for i in range(l):
-        if dir ==2:
+        if dir == 2:
             i += 1
         nr = r + dr[i]
         nc = c + dc[i]
-        if 0<=nr<N and 0<=nc<N:
+        if 0 <= nr < N and 0 <= nc < N:
             if arr[nr][nc]: continue
             if i == 1:
                 if arr[r+1][c]: continue
@@ -24,10 +24,10 @@ def find(r, c, dir):
             elif dir == 1:
                 if i == 0:
                     if nc == N - 1 and nr != N - 1: continue
-                elif i ==2:
+                elif i == 2:
                     if nr == N - 1 and nc != N - 1: continue
             elif dir == 2:
-                if i ==2:
+                if i == 2:
                     if nr == N - 1 and nc != N - 1: continue
             find(nr, nc, i)
 
