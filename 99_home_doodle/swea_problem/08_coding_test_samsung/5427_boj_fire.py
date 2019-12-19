@@ -15,7 +15,7 @@ def find(x):
         n = q.popleft()
         # print(n)
         if n[2]==1 and ((n[0]==0 or n[0]==H-1) or (n[1]==0 or n[1]==W-1)):
-            print('*******',n[3])
+            print(n[3])
             return
         if n[2]==1:
             visit[n[0]][n[1]] = 1
