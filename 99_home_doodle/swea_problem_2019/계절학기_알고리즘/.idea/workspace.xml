@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d44bc13-1a9c-4f02-873d-722106e9a6d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/17471_boj_gerrymandering.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/g.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17135_boj_castledefence.py" beforeDir="false" afterPath="$PROJECT_DIR$/17135_boj_castledefence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../03_django/02_django_crud/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/02_django_crud/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../03_django/03_django_form/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../03_django/03_django_form/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +15,7 @@
     <session id="1319398587">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.opened" value="3" />
@@ -276,14 +274,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="279" y="0" width="793" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.23178808" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.20723684" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20723684" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2850877" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
