@@ -1,45 +1,13 @@
 <template>
-  <div id="app" class="container">
+  <div id="app">
     <div id="nav">
-      <div v-if="isLoggedIn">
-        <router-link to="/">Home</router-link> |
-        <a @click.prevent="logout" href="#">Logout</a>
-      </div>
-      <div v-else>
-        <router-link to="/Login">Login</router-link>
-      </div>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
-    <div class="row justify-content-center">
-      <router-view class="col-6"/>
-    </div>
+    <router-view/>
   </div>
 </template>
-<script>
-export default {
-  name: 'App',
-  // data() {
-  //   return {
-  //     isAuthenticated: this.$session.has('jwt')
-  //   }
-  // },
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn
-    }
-  },
-  // updated () {
-  //   // DOM 이 re-render될 때 다시 토큰의 존재 여부를 확인 (md참조.)
-  //   this.isAuthenticated = this.$session.has('jwt')
-  // },
-  methods: {
-    logout() {
-      // this.$session.destroy()
-      this.$store.dispatch('logout')
-      this.$router.push('/login')
-    }
-  },
-}
-</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
