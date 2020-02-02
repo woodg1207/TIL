@@ -673,7 +673,7 @@ def artist_detail(request, artist_pk):
 - Postman 을 사용해서 요청을 보내보자.
 - **POST 요청은 url 마지막에 반드시 `/` 가 있어야한다.**
 - POST 로 전달할 데이터는 `body` 에 작성해서 보내야 한다.
-    
+  
     > - postman 에서 path variable 설정
 >
     > ![111](https://user-images.githubusercontent.com/18046097/67998879-5ead6e00-fc9d-11e9-8512-eec132a749af.png)
