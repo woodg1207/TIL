@@ -1,6 +1,6 @@
 import sys; sys.stdin = open('g.txt', 'r')
 
-from collections import deque
+
 from collections import deque
 def bfs(num, lists):
     q=deque()
