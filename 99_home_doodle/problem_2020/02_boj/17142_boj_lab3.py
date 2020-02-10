@@ -6,12 +6,13 @@ dr = [1, 0, -1, 0]
 dc = [0, -1, 0, 1]
 def bfs(vi):
     q = deque()
-    cnt = 0
+    cnt = -1
     visit = [[False]*N for _ in range(N)]
     for i in vi:
         q.append(i)
     while q:
         x = len(q)
+        cnt += 1
         for j in range(x):
             nr, nc = q.popleft()
             visit[nr][nc] = True
@@ -20,9 +21,8 @@ def bfs(vi):
                 if 0<=nr<N and 0<=nc<N:
                     if visit[nr][nc]: continue
                     if lab[nr][nc]==1:continue 
-                    # if lab[nr][nc]==2:
+                    if lab[nr][nc]==2: continue
                     q.append((nr, nc))
-        cnt += 1
     return cnt
 
 
