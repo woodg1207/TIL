@@ -12,7 +12,7 @@ def bfs(vi):
         q.append(i)
     while q:
         x = len(q)
-        for j in range(len(q)):
+        for j in range(x):
             nr, nc = q.popleft()
             visit[nr][nc] = True
             for i in range(4):
