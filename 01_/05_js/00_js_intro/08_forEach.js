@@ -6,19 +6,19 @@
 // 아무것도 return 하지 않는다. (undifined)
 // 콜백 함수 - 인자로 다른 함수에 전달 된 함수.
 
-//ES5
-var colors = ['red', 'blue', 'green']
+// //ES5
+// var colors = ['red', 'blue', 'green']
 
-for (var i = 0; i<colors.length; i++) {
-  console.log(colors[i])
-}
+// for (var i = 0; i<colors.length; i++) {
+//   console.log(colors[i])
+// }
 
-// ES6
-const COLORS = ['red', 'blue', 'green']
-COLORS.forEach( color => console.log(color))
+// // ES6
+// const COLORS = ['red', 'blue', 'green']
+// COLORS.forEach( color => console.log(color))
 
-const result = COLORS.forEach( color => console.log(color))
-console.log(result) // undefined   -- 리턴이 없다.
+// const result = COLORS.forEach( color => console.log(color))
+// console.log(result) // undefined   -- 리턴이 없다.
 
 
 // 1-1 연습
