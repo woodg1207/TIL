@@ -19,10 +19,11 @@ from django.conf.urls import url
 import os
 from django.views.static import serve
 from django.conf import settings
-
+from drf_filepond_tutorial import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('fp/', include('django_drf_filepond.urls')),
+    url(r'^fp/', include('django_drf_filepond.urls')),
     url(r'^demo/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR,'static')}),
+    url(r'^submitForm/$', views.SubmitFormView.as_view(), name='submit_form'),
 ]
