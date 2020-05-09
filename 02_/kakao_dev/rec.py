@@ -14,6 +14,7 @@ def solution(v):
         for i in range(2):
             check.append([point[i], i])
     v = [False] * 4
+    print(visit)
     for idx, i in enumerate(visit[0]):
         for j in range(len(check)):
             if i == check[j][0] and check[j][1]==idx:
@@ -30,5 +31,5 @@ def solution(v):
     return result
 
 
-sample =[[1, 1], [2, 2], [1, 2]]
+sample =[[1, 1], [1, 2], [2, 1]]
 print(solution(sample))
