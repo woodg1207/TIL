@@ -6,7 +6,7 @@ def solution(begin, target, words):
     q = deque()
     for i in words:
         w_dict[i] = False
-    for i in range(len(begin)):
+    # for i in range(len(begin)):
         
     
     return w_dict
