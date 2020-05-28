@@ -1,46 +1,35 @@
+#pip install serial
 import serial
 import sys
-def serial_ports():   
-    """ Lists serial port names   
-       
-        :raises EnvironmentError:   
-            On unsupported or unknown platforms   
-        :returns:   
-            A list of the serial ports available on the system   
-    """   
-    if sys.platform.startswith('win'):   
-        ports = ['COM%s' % (i + 1) for i in range(256)]   
-    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):   
-        # this excludes your current terminal "/dev/tty"   
-        ports = glob.glob('/dev/tty[A-Za-z]*')   
-    elif sys.platform.startswith('darwin'):   
-        ports = glob.glob('/dev/tty.*')   
-    else:   
-        raise EnvironmentError('Unsupported platform')   
-       
-    result = []   
-    for port in ports:   
-        try:   
-            s = serial.Serial(port)   
-            s.close()   
-            result.append(port)   
-        except (OSError, serial.SerialException):   
-            pass   
-    return result   
-   
-   
-if __name__ == '__main__':   
-    print(serial_ports()) 
-# [출처] serial (COM) 포트 찾기|작성자 과객
+import time
 
-
-
-# ardu = serial.serial.Serial('COM7',115200)
-ardu = serial.Serial('COM7',115200)
-
+ardu = serial.Serial('COM8',9600)
+cnt = 0
 while 1:
-    a = ardu.readline()
-    print(a)
-    b = a.decode()
-    print(b)
+
+    x = []
+    y = []
+    z = []
+    tm = time.localtime()
+    # print(type(tm.tm_sec), cnt)
+    # print(tm.tm_sec)
+    start = tm.tm_sec
+    while start+1>time.localtime().tm_sec:
+        a = ardu.readline()
+        b = a.decode()[:-2]
+        c=list(map(int,b.split(',')))
+        x.append(c[0])
+        y.append(c[1])
+        z.append(c[2])
+        # print(tm.tm_sec)
+        if start==59 and time.localtime().tm_sec==0:
+            break
+
+    x_range = abs(max(x)-min(x))
+    y_range = abs(max(y)-min(y))
+    z_range = abs(max(z)-min(z))
+
+
+    # print(x, y, z)
+    print(x_range, y_range, z_range)
     print('------')
