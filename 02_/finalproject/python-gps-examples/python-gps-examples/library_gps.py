@@ -10,16 +10,16 @@ def getPositionData(gps):
     if nx['class'] == 'TPV':
         latitude = getattr(nx,'lat', "Unknown")
         longitude = getattr(nx,'lon', "Unknown")
-        print "Your position: lon = " + str(longitude) + ", lat = " + str(latitude)
+        print ("Your position: lon = " + str(longitude) + ", lat = " + str(latitude))
 
 gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
 
 try:
-    print "Application started!"
+    print( "Application started!")
     while running:
         getPositionData(gpsd)
         time.sleep(1.0)
 
 except (KeyboardInterrupt):
     running = False
-    print "Applications closed!"
+    print( "Applications closed!")
