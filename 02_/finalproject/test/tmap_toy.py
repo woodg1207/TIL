@@ -2,11 +2,12 @@ import time, datetime
 import requests
 from pprint import pprint
 import csv
+from decouple import config
 import sys; sys.stdin=open('g.txt','r')
 
 start = time.process_time()
 
-sk = ''
+sk = config('TMAP_API_KEY')
 gps_data=''
 for i in range(12):
     lat, lon = input().split('|')
@@ -19,7 +20,7 @@ payload = {
 }
 
 response = requests.post(url, params=payload)
-# pprint(response.json())
+pprint(response.json())
 data = response.json()
 f = open('gps.csv','w',encoding='utf-8')
 wr = csv.writer(f)
