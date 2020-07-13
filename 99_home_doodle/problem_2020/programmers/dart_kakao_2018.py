@@ -18,7 +18,7 @@ def solution(dartResult):
                 point_list.append(int(point))
                 point = ''            
             if n not in option:
-                point_list[-1] = point_list[-1]**point_dict[n]
+                point_list[-1] = point_list[-1] ** point_dict[n]
             else:
                 l = len(point_list)
                 if n == '*':
