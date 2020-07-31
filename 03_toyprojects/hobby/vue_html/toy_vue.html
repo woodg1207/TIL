@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{message}} -> {{count}}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    const app = new Vue({
+      el : '#app',
+      data : {
+        message : 'hello',
+        count : 0
+      },
+      methods : {
+        // 표현식
+        plus : function(){
+          this.count++
+        },
+        // 선언식
+        minus() {
+          this.count--
+        }
+      }
+
+
+    })
+  </script>
+</body>
+</html>

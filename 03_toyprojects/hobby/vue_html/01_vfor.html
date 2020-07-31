@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p v-for='(a, b, c) in bookData'>
+      {{ a }} - {{ b }} - {{ c }}
+    </p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    const app = new Vue({
+      el:'div',
+      data : {
+        bookData:{
+          title : '123',
+          author : 'woo',
+          publishedAt : '2018-06-07'
+        }
+      }
+    })
+  </script>
+</body>
+</html>
