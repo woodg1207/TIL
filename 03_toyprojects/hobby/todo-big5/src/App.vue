@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <big-test :questions="questions"></big-test>
+    <big-test></big-test>
   </v-app>
 </template>
 
@@ -10,15 +10,8 @@
 
   export default {
     name: 'App',
-
     components: {
       BigTest,
     },
-
-    data() {
-      return {
-        questions: [],
-      }
-    }
   };
 </script>

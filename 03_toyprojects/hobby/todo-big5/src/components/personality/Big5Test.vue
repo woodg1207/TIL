@@ -1,8 +1,6 @@
 <template>
   <h1>hello</h1>
-  <ul v-for="question in questions">
-    <p>{{question.content}}</p>
-  </ul>
+  
 </template>
 
 <script>
@@ -17,12 +15,7 @@
         },
       ]
     },
-    props: {
-      questions: {
-        type: Array,
 
-      }
-    }
   }
 </script>
 
