@@ -1,12 +1,13 @@
 <template>
-  <v-app>
+  <div class="">
+    <h1> hi </h1>
     <big-test></big-test>
-  </v-app>
+  </div>
 </template>
 
 <script>
   // import HelloWorld from './components/HelloWorld';
-  import BigTest from './components/personality/Big5Test';
+  import BigTest from './components/personality/BigTest.vue';
 
   export default {
     name: 'App',
