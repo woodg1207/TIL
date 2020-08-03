@@ -17,7 +17,7 @@
     <hr>
   </div>
   <br>
-  <v-btn x-large color="success" dark @click="sumPoint()"> click me! </v-btn>
+  <v-btn x-large color="success" dark @click="checkPoint()"> click me! </v-btn>
 </div>
   
 </template>
@@ -93,15 +93,18 @@
       }
     },
     methods:{
+      checkPoint: function(){
+        this.questions.forEach(e=>{
+          if (e.point==''){
+            console.log('nooo')
+          }
+        });
+        this.sumPoint();
+      },
       sumPoint:function(){
         // console.log(this.questions)
         this.questions.forEach(element => {
-          if(element.point == ''){
-            console.log('noo')
-          }
-          else{
             console.log(element.point)
-          }
         });        
       }
     },
