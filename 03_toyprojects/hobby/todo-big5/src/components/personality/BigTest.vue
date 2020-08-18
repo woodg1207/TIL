@@ -25,7 +25,7 @@
     name : 'BigTest',
     data(){
       return {
-        servey : [], // 외향성, 신경성, 성실성, 친화성, 개방성 순서로
+        survey : [], // 외향성, 신경성, 성실성, 친화성, 개방성 순서로
         questions : [
           {
             id:1,
@@ -111,14 +111,14 @@
           }
           point_list.push(p)
         }
-        this.servey.push(point_list[0]+point_list[5])
-        this.servey.push(point_list[4]+point_list[9])
-        this.servey.push(point_list[3]+point_list[8])
-        this.servey.push(point_list[1]+point_list[6]+point_list[11])
-        this.servey.push(point_list[2]+point_list[7]+point_list[10])
-        console.log(this.servey)
-        this.$emit('serveyComplete', this.servey)
-        this.servey=[]
+        this.survey.push(point_list[0]+point_list[5])
+        this.survey.push(point_list[4]+point_list[9])
+        this.survey.push(point_list[3]+point_list[8])
+        this.survey.push(point_list[1]+point_list[6]+point_list[11])
+        this.survey.push(point_list[2]+point_list[7]+point_list[10])
+        console.log(this.survey)
+        this.$emit('surveyComplete', this.survey)
+        this.survey=[]
       }
     },
 
