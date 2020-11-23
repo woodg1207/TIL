@@ -97,8 +97,38 @@
 
 - `GROUPING` 함수 활용
 
+  - `ROLLUP, CUBE, GROUPING SETS` 등 새로운 그룹 함수를 지원하기 위해 `GROUPING` 함수가 추가되었다.
+  - ROLLUP이나 CUBE에 의한 소계가 계산된 결과에는 GROUPING(EXPR) = 1 이 표시되고, 
+  - 그 외의 결과에는 GROUPING(EXPR) = 0 이 표시된다.
+- GROUPING 함수와 CASE/DECODE를 이용해, 소계를 나타내는 필드에 원하는 문자열을 지정할 수 있어, 보고서 작성시 유용하게 사용할 수 있다.
+  
   ```sql
-  
+  SELECT DNAME, GROUPING(DNAME), JOB, GROUPING(JOB), COUNT(*) "Total Empl", SUM(SAL) "Total Sal" 
+  FROM EMP, DEPT 
+  WHERE DEPT.DEPTNO = EMP.DEPTNO 
+  GROUP BY ROLLUP (DNAME, JOB);
   ```
-
   
+  결과
+  
+  ```sql
+  DNAME GROUPING(DNAME) JOB GROUPING(JOB) Total Empl Total Sal
+  ------ -------------- --- ----------- -------- ------ 
+  SALES 0 CLERK 0 1 950 
+  SALES 0 MANAGER 0 1 2850 
+  SALES 0 SALESMAN 0 4 5600 
+  SALES 0 1 6 9400 
+  RESEARCH 0 CLERK 0 2 1900 
+  RESEARCH 0 ANALYST 0 2 6000 
+  RESEARCH 0 MANAGER 0 1 2975 
+  RESEARCH 0 1 5 10875 
+  ACCOUNTING 0 CLERK 0 1 1300 
+  ACCOUNTING 0 MANAGER 0 1 2450 
+  ACCOUNTING 0 PRESIDENT 0 1 5000 
+  ACCOUNTING 0 1 3 8750 
+  1 1 14 29025 #13개의 행이 선택되었다.
+  ```
+  
+  - 부서별, 업무별과 전체 집계를 표시한 레코드에서는 GROUPING 함수가 1을 리턴한 것을 확인할 수 있다.
+  - 전체 합계를 나타내는 결과 라인에서는 부서별 GROUPING 함수와 업무별 GROUPING 함수가 둘 다 1인 것을 알 수 있다.
+
