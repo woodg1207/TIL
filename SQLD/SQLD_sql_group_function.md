@@ -131,4 +131,23 @@
   
   - 부서별, 업무별과 전체 집계를 표시한 레코드에서는 GROUPING 함수가 1을 리턴한 것을 확인할 수 있다.
   - 전체 합계를 나타내는 결과 라인에서는 부서별 GROUPING 함수와 업무별 GROUPING 함수가 둘 다 1인 것을 알 수 있다.
+  
+- `GROUPING`+`CASE`
+
+  ```sql
+  SELECT 
+  	CASE GROUPING(DNAME) 
+  		WHEN 1 THEN 'All Departments' 
+  	ELSE DNAME END AS DNAME, 
+  	CASE GROUPING(JOB) 
+  		WHEN 1 THEN 'All Jobs' 
+  	ELSE JOB END AS JOB, 
+  	COUNT(*) "Total Empl", SUM(SAL) "Total Sal" FROM EMP, DEPT 
+  WHERE DEPT.DEPTNO = EMP.DEPTNO GROUP BY ROLLUP (DNAME, JOB); 
+  Oracle의 경우는 DECODE 함수를 사용해서 좀더 짧게 표현할 수 있다. 
+  SELECT DECODE(GROUPING(DNAME), 1, 'All Departments', DNAME) AS DNAME, DECODE(GROUPING(JOB), 1, 'All Jobs', JOB) AS JOB, COUNT(*) "Total Empl", SUM(SAL) "Total Sal" 
+  FROM EMP, DEPT WHERE DEPT.DEPTNO = EMP.DEPTNO GROUP BY ROLLUP (DNAME, JOB);
+  ```
+
+  
 
