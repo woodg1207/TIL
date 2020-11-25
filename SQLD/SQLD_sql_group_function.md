@@ -323,6 +323,8 @@
 
 - GROUPING SETS 함수도 결과에 대한 정렬이 필요한 경우는 `ORDER BY`절에 명시적으로 정렬 칼럼이 표시가 되어야 한다.
 
+- 일반 그룹함수
+
   ```sql
   SELECT DNAME, 'All Jobs' JOB, COUNT(*) "Total Empl", SUM(SAL) "Total Sal" 
   FROM EMP, DEPT WHERE DEPT.DEPTNO = EMP.DEPTNO GROUP BY DNAME 
@@ -344,5 +346,98 @@
   All Departments ANALYST 2 6000 --8개의 행이 선택되었다.
   ```
 
-  
+- `GROUPING SETS`
 
+  ```sql
+  SELECT 
+  	DECODE(GROUPING(DNAME), 1, 'All Departments', DNAME) AS DNAME, 	
+  	DECODE(GROUPING(JOB), 1, 'All Jobs', JOB) AS JOB, COUNT(*) "Total Empl", SUM(SAL) "Total Sal" 
+  FROM EMP, DEPT WHERE DEPT.DEPTNO = EMP.DEPTNO 
+  GROUP BY GROUPING SETS (DNAME, JOB);
+  ```
+
+  ```sql
+  DNAME JOB Total Empl Total Sal 
+  ---------------- ---------- -------- ------- 
+  All Departments CLERK 4 4150 
+  All Departments SALESMAN 4 5600 
+  All Departments PRESIDENT 1 5000 
+  All Departments MANAGER 3 8275 
+  All Departments ANALYST 2 6000 
+  ACCOUNTING All Jobs 3 8750 
+  RESEARCH All Jobs 5 10875 
+  SALES All Jobs 6 9400 --8개의 행이 선택되었다.
+  ```
+
+  - GROUPING SETS 함수 사용시 UNION ALL을 사용한 일반 그룹함수를 사용한 SQL과 같은 결과를 얻을 수 있으며, 
+  - 괄호로 묶은 집합 별로(괄호 내는 계층 구조가 아닌 하나의 데이터로 간주함) 집계를 구할 수 있다. 
+  - GROUPING SETS의 경우 일반 그룹함수를 이용한 SQL과 결과 데이터는 같으나 행들의 정렬 순서는 다를 수 있다.
+
+- `GROUPING SETS` // 순서 변경
+
+  ```sql
+  SELECT 
+  	DECODE(GROUPING(DNAME), 1, 'All Departments', DNAME) AS DNAME, 
+  	DECODE(GROUPING(JOB), 1, 'All Jobs', JOB) AS JOB, COUNT(*) "Total Empl", SUM(SAL) "Total Sal" 
+  FROM EMP, DEPT WHERE DEPT.DEPTNO = EMP.DEPTNO 
+  GROUP BY GROUPING SETS (JOB, DNAME);
+  ```
+
+  ```sql
+  DNAME JOB Total Empl Total Sal 
+  -------------- --------- ---------- --------- 
+  All Departments CLERK 4 4150 
+  All Departments SALESMAN 4 5600 
+  All Departments PRESIDENT 1 5000 
+  All Departments MANAGER 3 8275 
+  All Departments ANALYST 2 6000 
+  ACCOUNTING All Jobs 3 8750 
+  RESEARCH All Jobs 5 10875 
+  SALES All Jobs 6 9400 --8개의 행이 선택되었다.
+  ```
+
+  - GROUPING SETS 인수들은 평등한 관계이므로 인수의 순서가 바뀌어도 결과는 같다. 
+  - (JOB과 DNAME의 순서가 바뀌었지만 결과는 같다.)
+
+- [예제] 부서-JOB-매니저 별 집계와, 부서-JOB 별 집계와, JOB-매니저 별 집계를 GROUPING SETS 함수를 이용해서 구해본다.
+
+  ```sql
+  SELECT DNAME, JOB, MGR, SUM(SAL) "Total Sal" 
+  FROM EMP, DEPT WHERE DEPT.DEPTNO = EMP.DEPTNO 
+  GROUP BY GROUPING SETS ((DNAME, JOB, MGR), (DNAME, JOB), (JOB, MGR)); 
+  --GROUPING SETS 함수 사용시 괄호로 묶은 집합별로(괄호 내는 계층구조가 아닌 하나의 데이터로 간주함) 집계를 구할 수 있다.
+  ```
+
+  ```sql
+  DNAME JOB MGR Total Sal 
+  ----------- ---------- ------- ------- 
+  SALES CLERK 7698 950 
+  ACCOUNTING CLERK 7782 1300 
+  RESEARCH CLERK 7788 1100 
+  RESEARCH CLERK 7902 800 
+  RESEARCH ANALYST 7566 6000 
+  SALES MANAGER 7839 2850 
+  RESEARCH MANAGER 7839 2975 
+  ACCOUNTING MANAGER 7839 2450 
+  SALES SALESMAN 7698 5600 
+  ACCOUNTING PRESIDENT 5000 
+  CLERK 7698 950 
+  CLERK 7782 1300 
+  CLERK 7788 1100 
+  CLERK 7902 800 
+  ANALYST 7566 6000 
+  MANAGER 7839 8275 
+  SALESMAN 7698 5600 
+  PRESIDENT 5000 
+  SALES MANAGER 2850 
+  SALES CLERK 950 
+  ACCOUNTING CLERK 1300 
+  ACCOUNTING MANAGER 2450 
+  ACCOUNTING PRESIDENT 5000 
+  RESEARCH MANAGER 2975 
+  SALES SALESMAN 5600 
+  RESEARCH ANALYST 6000 
+  RESEARCH CLERK 1900 --27개의 행이 선택되었다.
+  ```
+
+  - 실행 결과에서 첫 번째 10건의 데이터는 (DNAME+JOB+MGR) 기준의 집계이며, 두 번째 8건의 데이터는 (JOB+MGR) 기준의 집계이며, 세 번째 9건의 데이터는 (DNAME+JOB) 기준의 집계이다.
