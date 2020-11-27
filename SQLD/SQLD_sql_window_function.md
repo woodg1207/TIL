@@ -71,3 +71,51 @@ SALESMAN TURNER 1500 8 7 CLERK MILLER 1300 9 8 SALESMAN WARD 1250 10 9 SALESMAN 
 - FORD와 SCOTT, WARD와 MARTIN은 동일한 SALARY이므로 RANK와 DENSE_RANK 칼럼에서 모두 같은 순위를 부여한다. 
 - 그러나 RANK와 DENSE_RANK의 차이를 알 수 있는 데이터는 FORD와 SCOTT의 다음 순위인 JONES의 경우 RANK는 4등으로 DENSE_RANK는 3등으로 표시되어 있다. 
 - 마찬가지로 WARD와 MARTIN의 다음 순위인 ADAMS의 경우 RANK는 12등으로 DENSE_RANK는 10등으로 표시되어 있다.
+
+3. `ROW_NUMBER` 함수
+
+- `ROW_NUMBER` 함수는 `RANK`나 `DENSE_RANK` 함수가 동일한 값에 대해서는 동일한 순위를 부여하는데 반해, 동일한 값이라도 고유한 순위를 부여한다.
+
+```sql
+SELECT JOB, ENAME, SAL, 
+	RANK( ) OVER (ORDER BY SAL DESC) RANK, 
+	ROW_NUMBER() OVER (ORDER BY SAL DESC) ROW_NUMBER FROM EMP;
+```
+
+```sql
+JOB ENAME SAL RANK ROW_NUMBER 
+--------- ------ ----- ----- ---------- 
+PRESIDENT KING 5000 1 1 
+ANALYST FORD 3000 2 2 
+ANALYST SCOTT 3000 2 3 #####
+MANAGER JONES 2975 4 4 
+MANAGER BLAKE 2850 5 5 MANAGER CLARK 2450 6 6 SALESMAN ALLEN 1600 7 7 SALESMAN TURNER 1500 8 8 CLERK MILLER 1300 9 9 SALESMAN WARD 1250 10 10 SALESMAN MARTIN 1250 10 11 CLERK ADAMS 1100 12 12 CLERK JAMES 950 13 13 CLERK SMITH 800 14 14 14개의 행이 선택되었다.
+```
+
+- FORD와 SCOTT, WARD와 MARTIN은 동일한 SALARY이므로 RANK는 같은 순위를 부여했지만, ROW_NUMBER의 경우 동일한 순위를 배제하기 위해 유니크한 순위를 정한다. 
+- 위 경우는 같은 SALARY에서는 어떤 순서가 정해질지 알 수 없다. 
+- (Oracle의 경우 rowid가 적은 행이 먼저 나온다) 이 부분은 데이터베이스 별로 틀린 결과가 나올 수 있으므로, 만일 동일 값에 대한 순서까지 관리하고 싶으면 
+- `ROW_NUMBER( ) OVER (ORDER BY SAL DESC, ENAME)` 같이 ORDER BY 절을 이용해 추가적인 정렬 기준을 정의해야 한다.
+
+### 2. 집계함수
+
+생략
+
+### 3. 그룹 내 행 순서 함수
+
+1. `FIRST_VALUE` 함수
+
+- FIRST_VALUE 함수를 이용해 파티션별 윈도우에서 가장 먼저 나온 값을 구한다. SQL Server에서는 지원하지 않는 함수이다. MIN 함수를 활용하여 같은 결과를 얻을 수도 있다.
+
+```sql
+SELECT DEPTNO, ENAME, SAL, 
+	FIRST_VALUE(ENAME) OVER (PARTITION BY DEPTNO ORDER BY SAL DESC ROWS UNBOUNDED PRECEDING) as DEPT_RICH 
+FROM EMP; RANGE UNBOUNDED PRECEDING : 현재 행을 기준으로 파티션 내의 첫 번째 행까지의 범위를 지정한다.
+```
+
+```sql
+DEPTNO ENAME SAL DEPT_RICH 
+------ ------- ---- -------- 
+10 KING 5000 KING 10 CLARK 2450 KING 10 MILLER 1300 KING 20 SCOTT * 3000 SCOTT 20 FORD * 3000 SCOTT 20 JONES 2975 SCOTT 20 ADAMS 1100 SCOTT 20 SMITH 800 SCOTT 30 BLAKE 2850 BLAKE 30 ALLEN 1600 BLAKE 30 TURNER 1500 BLAKE 30 MARTIN 1250 BLAKE 30 WARD 1250 BLAKE 30 JAMES 950 BLAKE 14개의 행이 선택되었다.
+```
+
