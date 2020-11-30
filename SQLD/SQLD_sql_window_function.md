@@ -118,6 +118,74 @@ FROM EMP; RANGE UNBOUNDED PRECEDING : 현재 행을 기준으로 파티션 내�
 ```sql
 DEPTNO ENAME SAL DEPT_RICH 
 ------ ------- ---- -------- 
-10 KING 5000 KING 10 CLARK 2450 KING 10 MILLER 1300 KING 20 SCOTT * 3000 SCOTT 20 FORD * 3000 SCOTT 20 JONES 2975 SCOTT 20 ADAMS 1100 SCOTT 20 SMITH 800 SCOTT 30 BLAKE 2850 BLAKE 30 ALLEN 1600 BLAKE 30 TURNER 1500 BLAKE 30 MARTIN 1250 BLAKE 30 WARD 1250 BLAKE 30 JAMES 950 BLAKE 14개의 행이 선택되었다.
+10 KING 5000 KING 
+10 CLARK 2450 KING 
+10 MILLER 1300 KING 
+20 SCOTT * 3000 SCOTT 
+20 FORD * 3000 SCOTT 
+20 JONES 2975 SCOTT 
+20 ADAMS 1100 SCOTT 
+20 SMITH 800 SCOTT 
+30 BLAKE 2850 BLAKE 
+30 ALLEN 1600 BLAKE 
+30 TURNER 1500 BLAKE 
+30 MARTIN 1250 BLAKE 
+30 WARD 1250 BLAKE 
+30 JAMES 950 BLAKE --14개의 행이 선택되었다.
+```
+
+- 실행 결과를 보면 같은 부서 내에 최고 급여를 받는 사람이 둘 있는 경우, 즉, * 표시가 있는 부서번호 20의 SCOTT과 FORD 중에서 어느 사람이 최고 급여자로 선택될지는 위의 SQL 문만 가지고는 판단할 수 없다. 
+- FIRST_VALUE는 다른 함수와 달리 공동 등수를 인정하지 않고 처음 나온 행만을 처리한다. 위처럼 공동 등수가 있을 경우에 의도적으로 세부 항목을 정렬하고 싶다면 별도의 정렬 조건을 가진 INLINE VIEW를 사용하거나, OVER () 내의 ORDER BY 절에 칼럼을 추가해야 한다.
+
+```sql
+SELECT DEPTNO, ENAME, SAL, 
+	FIRST_VALUE(ENAME) OVER (
+        PARTITION BY DEPTNO ORDER BY SAL DESC, ENAME ASC 
+        ROWS UNBOUNDED PRECEDING) as RICH_EMP 
+FROM EMP;
+```
+
+```sql
+DEPTNO ENAME SAL RICH_EMP 
+------ ------- ---- ------- 
+10 KING 5000 KING 
+10 CLARK 2450 KING 
+10 MILLER 1300 KING 
+20 FORD 3000 FORD 
+20 SCOTT 3000 FORD 
+20 JONES 2975 FORD 
+20 ADAMS 1100 FORD 
+20 SMITH 800 FORD 
+30 BLAKE 2850 BLAKE 
+30 ALLEN 1600 BLAKE 
+30 TURNER 1500 BLAKE 
+30 MARTIN 1250 BLAKE 
+30 WARD 1250 BLAKE 
+30 JAMES 950 BLAKE --14개의 행이 선택되었다.
+```
+
+- SQL에서 같은 부서 내에 최고 급여를 받는 사람이 둘 있는 경우를 대비해서 이름을 두 번째 정렬 조건으로 추가한다. 실행 결과를 확인하면 부서번호 20의 최고 급여자가 이전의 SCOTT 값에서 ASCII 코드가 적은 값인 FORD로 변경 된 것을 확인할 수 있다.
+
+2. `LAST_VALUE` 함수
+
+- LAST_VALUE 함수를 이용해 파티션별 윈도우에서 **가장 나중**에 나온 값을 구한다. SQL Server에서는 지원하지 않는 함수이다. MAX 함수를 활용하여 같은 결과를 얻을 수도 있다.
+
+```sql
+SELECT DEPTNO, ENAME, SAL, 
+	LAST_VALUE(ENAME) OVER (
+        PARTITION BY DEPTNO ORDER BY SAL DESC 
+        ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING
+    ) as DEPT_POOR 
+FROM EMP; 
+--ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING: 현재 행을 포함해서 파티션 내의 마지막 행까지의 범위를 지정한다.
+```
+
+```sql
+DEPTNO ENAME SAL DEPT_POOR 
+------ ------- ---- --------- 
+10 KING 5000 MILLER 
+10 CLARK 2450 MILLER 
+10 MILLER 1300 MILLER ###
+20 SCOTT 3000 SMITH 20 FORD 3000 SMITH 20 JONES 2975 SMITH 20 ADAMS 1100 SMITH 20 SMITH 800 SMITH 30 BLAKE 2850 JAMES 30 ALLEN 1600 JAMES 30 TURNER 1500 JAMES 30 MARTIN 1250 JAMES 30 WARD 1250 JAMES 30 JAMES 950 JAMES 14개의 행이 선택되었다.
 ```
 
