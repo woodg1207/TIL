@@ -1,6 +1,6 @@
 # 05_vue&django_2
 
-![](C:\Users\student\Desktop\TIL\06_vue\markdown\img\Screen Shot 2019-11-19 at 10.31.41 AM.png)
+![](.\img\Screen Shot 2019-11-19 at 10.31.41 AM.png)
 
 ---
 
