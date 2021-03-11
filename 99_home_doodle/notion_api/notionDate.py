@@ -19,7 +19,7 @@ cnt = 1
 title_list = []
 today = date.today()
 print(today)
-for i in range(40):
+for i in range(89):
     if today>=start:
         start += d
         cnt *= -1
@@ -38,29 +38,29 @@ for i in range(40):
     }
     start += d
     cnt *= -1
-# pprint(info)
+pprint(info)
 # print(title_list)
-for title in title_list:
-    print(title)
-    day_page = page.children.add_new(PageBlock)
-    day_page.title = title
-    l = ['아침','점심','저녁']
-    for i in range(3):
-        text = l[i]
-        if i==2:
-            for j in range(2):
-                if info[title][j]==1:
-                    if j:
-                        text += ' + 아보다트'
-                    else:
-                        text += ' + 제로큐탄'
-                else:
-                    continue
-        elif i == 0:
-            if info[title]['no'] == 1:
-                text += ' + 샴푸:노비프록스'
-            else:
-                text += ' + 샴푸:진크피'
-        todo = day_page.children.add_new(TodoBlock)
-        todo.title = text
-        todo.checked = False
+# for title in title_list:
+#     print(title)
+#     day_page = page.children.add_new(PageBlock)
+#     day_page.title = title
+#     l = ['아침','점심','저녁']
+#     for i in range(3):
+#         text = l[i]
+#         if i==2:
+#             for j in range(2):
+#                 if info[title][j]==1:
+#                     if j:
+#                         text += ' + 아보다트'
+#                     else:
+#                         text += ' + 제로큐탄'
+#                 else:
+#                     continue
+#         elif i == 0:
+#             if info[title]['no'] == 1:
+#                 text += ' + 샴푸:노비프록스'
+#             else:
+#                 text += ' + 샴푸:진크피'
+#         todo = day_page.children.add_new(TodoBlock)
+#         todo.title = text
+#         todo.checked = False
