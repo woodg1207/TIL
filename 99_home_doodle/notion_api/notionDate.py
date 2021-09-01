@@ -38,8 +38,7 @@ for i in range(300):
     }
     start += d
     cnt *= -1
-# pprint(info)
-# print(title_list)
+
 for title in title_list:
     print(title+' make')
     day_page = page.children.add_new(PageBlock)
